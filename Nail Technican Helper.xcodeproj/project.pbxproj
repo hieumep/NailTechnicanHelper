@@ -56,15 +56,23 @@
 		51AD6D281CAE3C1F00FB92B2 /* Nail Technican Helper */ = {
 			isa = PBXGroup;
 			children = (
+				51AD6D5F1CB0D54300FB92B2 /* StoryBoard */,
 				51AD6D291CAE3C1F00FB92B2 /* AppDelegate.swift */,
 				51AD6D2B1CAE3C1F00FB92B2 /* ViewController.swift */,
-				51AD6D2D1CAE3C1F00FB92B2 /* Main.storyboard */,
 				51AD6D331CAE3C1F00FB92B2 /* Assets.xcassets */,
 				51AD6D351CAE3C1F00FB92B2 /* LaunchScreen.storyboard */,
 				51AD6D381CAE3C1F00FB92B2 /* Info.plist */,
 				51AD6D301CAE3C1F00FB92B2 /* Nail_Technican_Helper.xcdatamodeld */,
 			);
 			path = "Nail Technican Helper";
+			sourceTree = "<group>";
+		};
+		51AD6D5F1CB0D54300FB92B2 /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				51AD6D2D1CAE3C1F00FB92B2 /* Main.storyboard */,
+			);
+			name = StoryBoard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,6 +300,7 @@
 				51AD6D3D1CAE3C1F00FB92B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
