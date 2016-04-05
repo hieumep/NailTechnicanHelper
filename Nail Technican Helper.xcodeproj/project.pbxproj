@@ -16,6 +16,8 @@
 		51AD6D621CB0DD8F00FB92B2 /* NailShop.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51AD6D601CB0DD8F00FB92B2 /* NailShop.storyboard */; };
 		51AD6D651CB2346E00FB92B2 /* NailShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D641CB2346E00FB92B2 /* NailShopViewController.swift */; };
 		51AD6D681CB236DB00FB92B2 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D671CB236DB00FB92B2 /* TextFieldDelegate.swift */; };
+		51DE49971CB375020078BDED /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DE49961CB375020078BDED /* CoreDataStackManager.swift */; };
+		51DE499A1CB38C730078BDED /* NailShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DE49991CB38C730078BDED /* NailShop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		51AD6D611CB0DD8F00FB92B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/NailShop.storyboard; sourceTree = "<group>"; };
 		51AD6D641CB2346E00FB92B2 /* NailShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NailShopViewController.swift; sourceTree = "<group>"; };
 		51AD6D671CB236DB00FB92B2 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
+		51DE49961CB375020078BDED /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
+		51DE49991CB38C730078BDED /* NailShop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NailShop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,8 @@
 		51AD6D281CAE3C1F00FB92B2 /* Nail Technican Helper */ = {
 			isa = PBXGroup;
 			children = (
+				51DE49981CB38B240078BDED /* Model */,
+				51DE49951CB374DF0078BDED /* Support */,
 				51AD6D661CB236AC00FB92B2 /* Controller Delegate */,
 				51AD6D631CB22AF300FB92B2 /* ViewController */,
 				51AD6D5F1CB0D54300FB92B2 /* StoryBoard */,
@@ -98,6 +104,22 @@
 				51AD6D671CB236DB00FB92B2 /* TextFieldDelegate.swift */,
 			);
 			name = "Controller Delegate";
+			sourceTree = "<group>";
+		};
+		51DE49951CB374DF0078BDED /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				51DE49961CB375020078BDED /* CoreDataStackManager.swift */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		51DE49981CB38B240078BDED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				51DE49991CB38C730078BDED /* NailShop.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,10 +195,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				51AD6D651CB2346E00FB92B2 /* NailShopViewController.swift in Sources */,
+				51DE499A1CB38C730078BDED /* NailShop.swift in Sources */,
 				51AD6D321CAE3C1F00FB92B2 /* Nail_Technican_Helper.xcdatamodeld in Sources */,
 				51AD6D2C1CAE3C1F00FB92B2 /* ViewController.swift in Sources */,
 				51AD6D681CB236DB00FB92B2 /* TextFieldDelegate.swift in Sources */,
 				51AD6D2A1CAE3C1F00FB92B2 /* AppDelegate.swift in Sources */,
+				51DE49971CB375020078BDED /* CoreDataStackManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
