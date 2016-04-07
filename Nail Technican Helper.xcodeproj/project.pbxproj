@@ -18,6 +18,8 @@
 		51AD6D681CB236DB00FB92B2 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D671CB236DB00FB92B2 /* TextFieldDelegate.swift */; };
 		51DE49971CB375020078BDED /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DE49961CB375020078BDED /* CoreDataStackManager.swift */; };
 		51DE499A1CB38C730078BDED /* NailShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DE49991CB38C730078BDED /* NailShop.swift */; };
+		51DE499C1CB4D4010078BDED /* DailyIncome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DE499B1CB4D4010078BDED /* DailyIncome.swift */; };
+		51DE499E1CB4DD9B0078BDED /* EachCustomerIncome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DE499D1CB4DD9B0078BDED /* EachCustomerIncome.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		51AD6D671CB236DB00FB92B2 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
 		51DE49961CB375020078BDED /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		51DE49991CB38C730078BDED /* NailShop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NailShop.swift; sourceTree = "<group>"; };
+		51DE499B1CB4D4010078BDED /* DailyIncome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyIncome.swift; sourceTree = "<group>"; };
+		51DE499D1CB4DD9B0078BDED /* EachCustomerIncome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EachCustomerIncome.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				51DE49991CB38C730078BDED /* NailShop.swift */,
+				51DE499B1CB4D4010078BDED /* DailyIncome.swift */,
+				51DE499D1CB4DD9B0078BDED /* EachCustomerIncome.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -196,8 +202,10 @@
 			files = (
 				51AD6D651CB2346E00FB92B2 /* NailShopViewController.swift in Sources */,
 				51DE499A1CB38C730078BDED /* NailShop.swift in Sources */,
+				51DE499C1CB4D4010078BDED /* DailyIncome.swift in Sources */,
 				51AD6D321CAE3C1F00FB92B2 /* Nail_Technican_Helper.xcdatamodeld in Sources */,
 				51AD6D2C1CAE3C1F00FB92B2 /* ViewController.swift in Sources */,
+				51DE499E1CB4DD9B0078BDED /* EachCustomerIncome.swift in Sources */,
 				51AD6D681CB236DB00FB92B2 /* TextFieldDelegate.swift in Sources */,
 				51AD6D2A1CAE3C1F00FB92B2 /* AppDelegate.swift in Sources */,
 				51DE49971CB375020078BDED /* CoreDataStackManager.swift in Sources */,
