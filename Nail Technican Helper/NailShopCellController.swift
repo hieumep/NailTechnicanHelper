@@ -7,3 +7,15 @@
 //
 
 import Foundation
+import UIKit
+
+class NailShopCellControler : UITableViewCell {
+    
+    @IBOutlet weak var nailShopLabel: UILabel!
+    
+    @IBOutlet weak var percentLabel: UILabel!
+    
+    @IBOutlet weak var phoneNumberLabel: UILabel!
+    
+    @IBOutlet weak var selectButton: UIButton!
+}

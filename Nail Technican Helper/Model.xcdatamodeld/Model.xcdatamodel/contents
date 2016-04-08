@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
-    <entity name="DailyIncome" syncable="YES">
+    <entity name="DailyIncome" representedClassName=".DailyCome" syncable="YES">
         <attribute name="cardTip" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
         <attribute name="cashTip" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -8,14 +8,14 @@
         <attribute name="photo" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="shops" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NailShop" inverseName="dailyIncomes" inverseEntity="NailShop" syncable="YES"/>
     </entity>
-    <entity name="EachCustomerIncome" syncable="YES">
+    <entity name="EachCustomerIncome" representedClassName=".EachCustomerIncome" syncable="YES">
         <attribute name="cardTip" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="cashTip" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="income" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="shop" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NailShop" inverseName="eachCustomerIncomes" inverseEntity="NailShop" syncable="YES"/>
     </entity>
-    <entity name="NailShop" syncable="YES">
+    <entity name="NailShop" representedClassName=".NailShop" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nailShop" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="percent" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -24,8 +24,8 @@
         <relationship name="eachCustomerIncomes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EachCustomerIncome" inverseName="shop" inverseEntity="EachCustomerIncome" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DailyIncome" positionX="-36" positionY="27" width="128" height="135"/>
-        <element name="EachCustomerIncome" positionX="-54" positionY="18" width="128" height="120"/>
-        <element name="NailShop" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="DailyIncome" positionX="-36" positionY="27" width="128" height="133"/>
+        <element name="EachCustomerIncome" positionX="-11" positionY="465" width="128" height="118"/>
+        <element name="NailShop" positionX="214" positionY="234" width="128" height="133"/>
     </elements>
 </model>

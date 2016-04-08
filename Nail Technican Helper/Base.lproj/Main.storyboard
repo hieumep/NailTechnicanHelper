@@ -298,6 +298,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucN-Bt-pMn">
                                 <rect key="frame" x="277" y="5" width="46" height="30"/>
                                 <state key="normal" title="Edit"/>
+                                <connections>
+                                    <segue destination="GdU-WZ-CxO" kind="presentation" id="BlK-qN-ie7"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Commission(%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0W5-Zv-kgS">
                                 <rect key="frame" x="13" y="28" width="127" height="21"/>
@@ -312,6 +315,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgW-Gw-8FW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="902" y="769.5"/>
+        </scene>
+        <!--NailShop-->
+        <scene sceneID="Jlf-g2-Q5n">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="NailShopsStoryBoard" storyboardName="NailShop" id="GdU-WZ-CxO" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pok-bj-bwW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="766.5" y="901"/>
         </scene>
     </scenes>
 </document>

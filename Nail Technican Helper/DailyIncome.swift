@@ -1,5 +1,5 @@
 //
-//  IncomeDaily.swift
+//  DailyIncome.swift
 //  Nail Technican Helper
 //
 //  Created by Hieu Vo on 4/5/16.
@@ -8,7 +8,7 @@
 
 import CoreData
 
-class IncomeDaily : NSManagedObject {
+class DailyIncome : NSManagedObject {
     struct keys {
         static let date = "date"
         static let income = "income"
@@ -22,12 +22,19 @@ class IncomeDaily : NSManagedObject {
     @NSManaged var cardTip : Int
     @NSManaged var cashTip : Int
     @NSManaged var photo : String
+    @NSManaged var shops : NailShop?
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
-    init(incomeDailyDict : [String : AnyObject], context : NSManagedObjectContext){
-        let entity = NSEntityDescription.entityForName("In", inManagedObjectContext: <#T##NSManagedObjectContext#>)
+    init(dailyIncomeDict : [String : AnyObject], context : NSManagedObjectContext){
+        let entity = NSEntityDescription.entityForName("DailyIncome", inManagedObjectContext: context)!
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+        date = dailyIncomeDict[keys.date] as! NSDate
+        income = dailyIncomeDict[keys.income] as! Int
+        cardTip = dailyIncomeDict[keys.cardTip] as! Int
+        cashTip = dailyIncomeDict[keys.cashTip] as! Int
+        photo = dailyIncomeDict[keys.photo] as! String
     }
 }
