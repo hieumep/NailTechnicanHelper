@@ -14,12 +14,14 @@ class NailShop : NSManagedObject{
         static let percent = "percent"
         static let phoneNumber = "phone_number"
         static let address = "address"
+        static let selected = "selected"
     }
     
     @NSManaged var nailShop : String
     @NSManaged var percent : NSNumber
     @NSManaged var phoneNumber : String?
     @NSManaged var address : String?
+    @NSManaged var selected : Bool
     @NSManaged var dailyIncomes : [DailyIncome]?
     @NSManaged var eachCustomerIncomes : [EachCustomerIncome]?
     
@@ -35,6 +37,7 @@ class NailShop : NSManagedObject{
         percent = Int(commision)!
         phoneNumber = nailShops[keys.phoneNumber] as? String
         address = nailShops[keys.address] as? String
+        selected = false
     }
     
 }

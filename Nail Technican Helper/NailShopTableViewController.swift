@@ -11,6 +11,8 @@ import UIKit
 import CoreData
 
 class NailShopTableViewController : UITableViewController, NSFetchedResultsControllerDelegate {
+    var selectedRow : Int? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         do {
@@ -69,9 +71,37 @@ class NailShopTableViewController : UITableViewController, NSFetchedResultsContr
         cell.nailShopLabel.text = shop.nailShop
         cell.percentLabel.text = "\(shop.percent)"
         cell.phoneNumberLabel.text = shop.phoneNumber
+        
+        if shop.selected {
+            cell.selectButton.hidden = true
+            cell.selectedLabel.hidden = false
+            self.selectedRow = indexPath.row
+        } else {
+            cell.selectedLabel.hidden = true
+            cell.selectButton.hidden = false
+            cell.selectButton.tag = indexPath.row
+            cell.selectButton.addTarget(self, action: #selector(NailShopTableViewController.selectShop), forControlEvents: .TouchUpInside)
+        }
         return cell
     }
     
+    @IBAction func selectShop(sender : UIButton){
+        let selectRow = sender.tag
+        let fetchRequest = NSFetchRequest(entityName: "NailShop")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "nailShop", ascending: true)]
+        do {
+            let results = try self.shareContext.executeFetchRequest(fetchRequest) as! [NailShop]
+            results[selectRow].selected = true
+            if let _ = selectedRow {
+                results[selectedRow!].selected = false
+            }
+            CoreDataStackManager.sharedInstance().saveContext()
+            self.tableView.reloadData()
+        }catch{
+            print(error)
+        }
+        
+    }
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let shop = self.fetchedResultController.objectAtIndexPath(indexPath) as! NailShop
         switch (editingStyle) {
@@ -84,6 +114,14 @@ class NailShopTableViewController : UITableViewController, NSFetchedResultsContr
             return
         }
         
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let shop = self.fetchedResultController.objectAtIndexPath(indexPath) as! NailShop
+        let nailShopViewController = self.storyboard!.instantiateViewControllerWithIdentifier("NailShopViewController")as! NailShopViewController
+        nailShopViewController.shop = shop
+        nailShopViewController.indexPath = indexPath
+        self.navigationController?.pushViewController(nailShopViewController, animated: true)        
     }
     
 }

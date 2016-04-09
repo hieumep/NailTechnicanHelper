@@ -20,12 +20,13 @@
         <attribute name="nailShop" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="percent" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="selected" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="dailyIncomes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DailyIncome" inverseName="shops" inverseEntity="DailyIncome" syncable="YES"/>
         <relationship name="eachCustomerIncomes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EachCustomerIncome" inverseName="shop" inverseEntity="EachCustomerIncome" syncable="YES"/>
     </entity>
     <elements>
         <element name="DailyIncome" positionX="-36" positionY="27" width="128" height="133"/>
         <element name="EachCustomerIncome" positionX="-11" positionY="465" width="128" height="118"/>
-        <element name="NailShop" positionX="214" positionY="234" width="128" height="133"/>
+        <element name="NailShop" positionX="214" positionY="234" width="128" height="148"/>
     </elements>
 </model>

@@ -18,4 +18,6 @@ class NailShopCellControler : UITableViewCell {
     @IBOutlet weak var phoneNumberLabel: UILabel!
     
     @IBOutlet weak var selectButton: UIButton!
+    
+    @IBOutlet weak var selectedLabel: UILabel!
 }
