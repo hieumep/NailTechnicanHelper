@@ -114,6 +114,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="List Nail Shops" id="lMJ-qm-e2w">
                         <barButtonItem key="backBarButtonItem" title="Back" id="tSn-WH-Ksd"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="E6g-pY-nrF">
+                            <connections>
+                                <action selector="backAction:" destination="TxN-nT-sBF" id="Rfe-H6-0nd"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="CgV-Sj-9QK">
                             <connections>
                                 <segue destination="Vso-bA-jlt" kind="show" id="JU5-Vd-cOI"/>

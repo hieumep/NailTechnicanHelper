@@ -124,4 +124,9 @@ class NailShopTableViewController : UITableViewController, NSFetchedResultsContr
         self.navigationController?.pushViewController(nailShopViewController, animated: true)        
     }
     
+    
+    @IBAction func backAction(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }
