@@ -85,13 +85,13 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJv-fh-JhU">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJv-fh-JhU">
                                         <rect key="frame" x="58" y="2" width="455" height="21"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yco-09-fb9">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yco-09-fb9">
                                         <rect key="frame" x="58" y="28" width="42" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="42" id="EOD-cB-Nus"/>
@@ -312,6 +312,7 @@
                     <tabBarItem key="tabBarItem" title="Item 1" id="53I-Kd-waD"/>
                     <navigationItem key="navigationItem" title="Daily Income" id="F8d-Z5-fE4"/>
                     <connections>
+                        <outlet property="mainView" destination="tRU-zO-WCY" id="ifw-bZ-roX"/>
                         <outlet property="percentLabel" destination="yco-09-fb9" id="pMo-qc-FQK"/>
                         <outlet property="pickShopLabel" destination="DfX-1k-gXr" id="vGN-gV-avj"/>
                         <outlet property="shopLabel" destination="DJv-fh-JhU" id="oUs-2g-PHn"/>
