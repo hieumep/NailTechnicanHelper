@@ -312,7 +312,9 @@
                     <tabBarItem key="tabBarItem" title="Item 1" id="53I-Kd-waD"/>
                     <navigationItem key="navigationItem" title="Daily Income" id="F8d-Z5-fE4"/>
                     <connections>
+                        <outlet property="percentLabel" destination="yco-09-fb9" id="pMo-qc-FQK"/>
                         <outlet property="pickShopLabel" destination="DfX-1k-gXr" id="vGN-gV-avj"/>
+                        <outlet property="shopLabel" destination="DJv-fh-JhU" id="oUs-2g-PHn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HYS-wE-rmw" userLabel="First Responder" sceneMemberID="firstResponder"/>
