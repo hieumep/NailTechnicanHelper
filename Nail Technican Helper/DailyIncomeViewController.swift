@@ -9,17 +9,35 @@
 import UIKit
 import CoreData
 
-class DailyIncomeViewController : UIViewController {
+class DailyIncomeViewController : UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var pickShopLabel: UILabel!
     @IBOutlet weak var shopLabel: UILabel!
     
+    @IBOutlet weak var dateButton: UIButton!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var mainView: UIStackView!
     
+    @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var percentLabel: UILabel!
-    var shops :[NailShop]?
+    
+    
+    @IBOutlet weak var incomeText: UITextField!
+    
+    @IBOutlet weak var cardTipsText: UITextField!
+    
+   
+    @IBOutlet weak var cashTipsText: UITextField!
+    @IBOutlet weak var realIncomeLabel: UILabel!
+    
+    var flagDate  = true
+    
+    var shop :NailShop?
     override func viewWillAppear(animated: Bool) {
         getCurrentShop()
+        let date = formatDate(NSDate())
+        dateButton.setTitle("\(date)", forState: .Normal)
+        incomeText.delegate = self
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,14 +45,33 @@ class DailyIncomeViewController : UIViewController {
       
     }
     
+    @IBAction func dateFromDatePicker(sender: AnyObject) {
+        let date = formatDate(datePicker.date)
+        dateButton.setTitle("\(date)", forState: .Normal)
+    }
+    
+    @IBAction func pickDate(sender: AnyObject) {
+        flagDate = !flagDate
+        datePicker.hidden = flagDate
+        dateLabel.hidden = !flagDate
+    }
+    
+    func formatDate(date: NSDate) -> String {
+        let dateFormater = NSDateFormatter()
+        dateFormater.locale = NSLocale.currentLocale()
+        dateFormater.dateStyle = .FullStyle
+        let dateString = dateFormater.stringFromDate(date)
+        return dateString
+    }
     func getCurrentShop (){
         let fetchRequest = NSFetchRequest(entityName: "NailShop")
         fetchRequest.predicate = NSPredicate(format: "selected==true")
         do {
-            shops = try sharedContext.executeFetchRequest(fetchRequest) as? [NailShop]
+           let shops = try sharedContext.executeFetchRequest(fetchRequest) as? [NailShop]
         if shops?.count >= 1  {
             shopLabel.text = shops![0].nailShop
             percentLabel.text = "\(shops![0].percent)"
+            shop = shops![0]
             mainView.hidden = false
             pickShopLabel.hidden = true
         }else {
@@ -53,5 +90,16 @@ class DailyIncomeViewController : UIViewController {
     
     func saveContext(){
         CoreDataStackManager.sharedInstance().saveContext()
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        if !textField.text!.isEmpty {
+            let percent = shop?.percent as! Int
+            let realIncomeLabel = Double(Int(textField.text!)! * percent/100)
+            self.realIncomeLabel.text = "\(realIncomeLabel)"
+        } else {
+            textField.text = "0"
+            self.realIncomeLabel.text = "0"
+        }
     }
 }

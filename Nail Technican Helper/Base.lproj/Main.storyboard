@@ -85,14 +85,14 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJv-fh-JhU">
-                                        <rect key="frame" x="58" y="2" width="455" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJv-fh-JhU">
+                                        <rect key="frame" x="58" y="2" width="455" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yco-09-fb9">
-                                        <rect key="frame" x="58" y="28" width="42" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yco-09-fb9">
+                                        <rect key="frame" x="58" y="28" width="42" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="42" id="EOD-cB-Nus"/>
                                         </constraints>
@@ -138,20 +138,23 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4Q-sF-ou2">
                                                 <rect key="frame" x="481" y="0.0" width="79" height="30"/>
                                                 <state key="normal" title="01/04/2016"/>
+                                                <connections>
+                                                    <action selector="pickDate:" destination="Fz5-VS-F4c" eventType="touchUpInside" id="4DN-cL-tz1"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="2TQ-DN-wlj"/>
                                         </constraints>
                                     </stackView>
-                                    <datePicker hidden="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="y3Q-Xw-jFF">
+                                    <datePicker hidden="YES" contentMode="scaleAspectFit" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="y3Q-Xw-jFF">
                                         <rect key="frame" x="0.0" y="32" width="320" height="0.0"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="jZN-yN-mdj"/>
-                                        </constraints>
                                         <date key="date" timeIntervalSinceReferenceDate="481266331.341012">
                                             <!--2016-04-02 05:05:31 +0000-->
                                         </date>
+                                        <connections>
+                                            <action selector="dateFromDatePicker:" destination="Fz5-VS-F4c" eventType="valueChanged" id="WWG-ug-ZKl"/>
+                                        </connections>
                                     </datePicker>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="68h-X3-fNF">
                                         <rect key="frame" x="0.0" y="34" width="300" height="30"/>
@@ -164,8 +167,8 @@
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xjx-pa-5e7">
                                                 <rect key="frame" x="150" y="0.0" width="150" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -205,7 +208,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YSM-AM-E5E">
                                                 <rect key="frame" x="150" y="0.0" width="150" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -225,7 +228,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CFd-hF-M7B">
                                                 <rect key="frame" x="150" y="0.0" width="150" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -242,16 +245,16 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gQ-FT-5UP">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="8gQ-FT-5UP">
                                                 <rect key="frame" x="150" y="0.0" width="150" height="30"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yc3-ju-9Mu">
-                                                        <rect key="frame" x="0.0" y="0.0" width="104" height="30"/>
-                                                        <state key="normal" title="Button"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yc3-ju-9Mu">
+                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
+                                                        <state key="normal" title="Camera"/>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRJ-2f-GJW">
-                                                        <rect key="frame" x="104" y="0.0" width="46" height="30"/>
-                                                        <state key="normal" title="Button"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRJ-2f-GJW">
+                                                        <rect key="frame" x="75" y="0.0" width="75" height="30"/>
+                                                        <state key="normal" title="Gallery"/>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -312,9 +315,16 @@
                     <tabBarItem key="tabBarItem" title="Item 1" id="53I-Kd-waD"/>
                     <navigationItem key="navigationItem" title="Daily Income" id="F8d-Z5-fE4"/>
                     <connections>
+                        <outlet property="cardTipsText" destination="YSM-AM-E5E" id="DIz-3r-Y9D"/>
+                        <outlet property="cashTipsText" destination="CFd-hF-M7B" id="8PH-Tg-UAJ"/>
+                        <outlet property="dateButton" destination="c4Q-sF-ou2" id="iH1-hh-7Fz"/>
+                        <outlet property="dateLabel" destination="qBZ-pc-VME" id="dlW-8l-XIe"/>
+                        <outlet property="datePicker" destination="y3Q-Xw-jFF" id="d6h-Vx-oJe"/>
+                        <outlet property="incomeText" destination="Xjx-pa-5e7" id="3gR-xr-2SA"/>
                         <outlet property="mainView" destination="tRU-zO-WCY" id="ifw-bZ-roX"/>
                         <outlet property="percentLabel" destination="yco-09-fb9" id="pMo-qc-FQK"/>
                         <outlet property="pickShopLabel" destination="DfX-1k-gXr" id="vGN-gV-avj"/>
+                        <outlet property="realIncomeLabel" destination="qN0-Jv-eCi" id="pge-kz-P5C"/>
                         <outlet property="shopLabel" destination="DJv-fh-JhU" id="oUs-2g-PHn"/>
                     </connections>
                 </viewController>
