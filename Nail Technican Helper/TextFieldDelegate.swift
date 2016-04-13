@@ -9,12 +9,12 @@
 import UIKit
 
 class TextFieldDelegate : NSObject, UITextFieldDelegate {
-    /*
+    
     func textFieldDidEndEditing(textField: UITextField) {
         if textField.text!.isEmpty {
             textField.text = "0"
         }
-    }*/
+    }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
