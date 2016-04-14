@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
-    <entity name="DailyIncome" representedClassName=".DailyCome" syncable="YES">
+    <entity name="DailyIncome" representedClassName=".DailyIncome" syncable="YES">
         <attribute name="cardTip" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
         <attribute name="cashTip" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -25,7 +25,7 @@
         <relationship name="eachCustomerIncomes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EachCustomerIncome" inverseName="shop" inverseEntity="EachCustomerIncome" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DailyIncome" positionX="-36" positionY="27" width="128" height="133"/>
+        <element name="DailyIncome" positionX="-36" positionY="27" width="128" height="135"/>
         <element name="EachCustomerIncome" positionX="-11" positionY="465" width="128" height="118"/>
         <element name="NailShop" positionX="214" positionY="234" width="128" height="148"/>
     </elements>

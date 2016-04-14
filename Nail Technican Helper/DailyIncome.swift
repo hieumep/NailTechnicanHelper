@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import UIKit
 
 class DailyIncome : NSManagedObject {
     struct keys {
@@ -18,10 +19,10 @@ class DailyIncome : NSManagedObject {
     }
     
     @NSManaged var date : NSDate
-    @NSManaged var income : Int
-    @NSManaged var cardTip : Int
-    @NSManaged var cashTip : Int
-    @NSManaged var photo : String
+    @NSManaged var income : NSNumber
+    @NSManaged var cardTip : NSNumber
+    @NSManaged var cashTip : NSNumber
+    @NSManaged var photo : String?
     @NSManaged var shops : NailShop?
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
@@ -35,6 +36,18 @@ class DailyIncome : NSManagedObject {
         income = dailyIncomeDict[keys.income] as! Int
         cardTip = dailyIncomeDict[keys.cardTip] as! Int
         cashTip = dailyIncomeDict[keys.cashTip] as! Int
-        photo = dailyIncomeDict[keys.photo] as! String
+        let image = dailyIncomeDict[keys.photo] as? UIImage
+        photo = getImage(image, date: date)
+        
+    }
+    
+    func getImage(image: UIImage?, date: NSDate) -> String? {
+        let dateFormatter = NSDateFormatter()
+        let identifier = dateFormatter.stringFromDate(date) + ".jpg"
+        guard let image = image else {
+            return nil
+        }
+        ImageCache.sharedIntanse().storeImage(image, withIdentifier: identifier)
+        return identifier
     }
 }

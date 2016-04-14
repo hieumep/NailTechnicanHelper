@@ -107,12 +107,13 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     }
    
     @IBAction func saveIncome(sender: AnyObject) {
+        
         let incomeDict : [String : AnyObject] = [
             DailyIncome.keys.date : date,
-            DailyIncome.keys.income : incomeText.text!,
-            DailyIncome.keys.cardTip : cardTipsText.text!,
-            DailyIncome.keys.cashTip : cashTipsText.text!,
-            DailyIncome.keys.photo : String(self.image)
+            DailyIncome.keys.income : Int(incomeText.text!)!,
+            DailyIncome.keys.cardTip : Int(cardTipsText.text!)!,
+            DailyIncome.keys.cashTip : Int(cashTipsText.text!)!,
+            DailyIncome.keys.photo : self.image ?? ""
         ]
         let income = DailyIncome(dailyIncomeDict: incomeDict, context: sharedContext)
         income.shops = self.shop
