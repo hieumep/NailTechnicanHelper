@@ -30,7 +30,6 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     var tapRecognizer : UITapGestureRecognizer? = nil
     var textFieldDelegate = TextFieldDelegate()
     var date = NSDate()
-    
     var shop :NailShop?
     var image : UIImage?
     
@@ -58,6 +57,8 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         pickShopLabel.text = " You don't set up Nail Shop yet, please tap EDIT to pick your current Nail Shop"
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSingeTap))
         tapRecognizer!.numberOfTapsRequired = 1
+        let tomorrow = Date(date: NSDate(), addDay: 1)
+        datePicker.maximumDate = tomorrow.getEndDate()
     }
     
     func handleSingeTap(recognizer : UITapGestureRecognizer){
@@ -118,10 +119,21 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         let income = DailyIncome(dailyIncomeDict: incomeDict, context: sharedContext)
         income.shops = self.shop
         saveContext()
+        self.tabBarController?.selectedIndex = 1
+        resetField()
     }
     
     
     @IBAction func cancel(sender: AnyObject) {
+        resetField()
+    }
+    
+    func resetField(){
+        incomeText.text = "0"
+        realIncomeLabel.text  = "0.0"
+        cardTipsText.text = "0"
+        cashTipsText.text = "0"
+        imageView.image = nil
     }
     
     func getCurrentShop (){
