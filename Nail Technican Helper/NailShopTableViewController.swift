@@ -109,6 +109,11 @@ class NailShopTableViewController : UITableViewController, NSFetchedResultsContr
             if shop.dailyIncomes?.count <= 0 && shop.eachCustomerIncomes?.count <= 0 {
                 shareContext.deleteObject(shop)
                 CoreDataStackManager.sharedInstance().saveContext()
+            }else{
+                let alert = UIAlertController(title: "Error", message: "It have data, you can delete it", preferredStyle: .Alert)
+                let cancelButton = UIAlertAction(title: "Okie", style: .Cancel, handler: nil)
+                alert.addAction(cancelButton)
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         default:
             return

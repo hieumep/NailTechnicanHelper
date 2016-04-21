@@ -11,11 +11,28 @@ import UIKit
 import CoreData
 
 class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsControllerDelegate {
+    var incomes : [DailyIncome]? = [DailyIncome]()
+    var sumIncome = 0
+    var sumRealIncome = 0.0
+    var sumCardTip = 0
+    var sumCashTip = 0
+    let startDate = Date(date: NSDate(), addDay: -7)
+    let endDate = Date(date: NSDate())
     
-        
+    @IBOutlet weak var sumIncomeLabel: UILabel!
+    @IBOutlet weak var distanceDate: UILabel!
+    @IBOutlet weak var sumRealIncomeLabel: UILabel!
+    @IBOutlet weak var sumCardTipLabel: UILabel!
+    @IBOutlet weak var sumCashTipLabel: UILabel!
+    
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+       
         tableView.reloadData()
+        incomes = fetchResultController.fetchedObjects as? [DailyIncome]
+        distanceDate.text = "\(startDate.getStartDateString()) -> \(endDate.getEndDateString())"
+        sum(incomes)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +42,29 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
             print(error)
         }
         fetchResultController.delegate = self
+        
+    }
+    func sum(incomes : [DailyIncome]?){
+        sumIncome = 0
+        sumRealIncome = 0.0
+        sumCardTip = 0
+        sumCashTip = 0
+        if incomes?.count >= 0 {
+            for i in 0..<incomes!.count {
+                sumIncome += incomes![i].income as Int
+                sumRealIncome += Double(Int(incomes![i].income) * Int((incomes![i].shops?.percent)!) / 100)
+                sumCardTip += incomes![i].cardTip as Int
+                sumCashTip += incomes![i].cashTip as Int
+            }
+        }
+        showSum()
+    }
+    
+    func showSum(){
+        sumIncomeLabel.text = "\(sumIncome)"
+        sumRealIncomeLabel.text = "\(sumRealIncome)"
+        sumCardTipLabel.text = "\(sumCardTip)"
+        sumCashTipLabel.text = "\(sumCashTip)"
     }
     
     lazy var sharedContext : NSManagedObjectContext = {
@@ -36,10 +76,8 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     }
     
     lazy var fetchResultController : NSFetchedResultsController = {
-        let startDate = Date(date: NSDate(), addDay: -7)
-        let endDate = Date(date: NSDate())
         let fetchRequest = NSFetchRequest(entityName: "DailyIncome")
-        fetchRequest.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", startDate.getStartDate(), endDate.getEndDate())
+        fetchRequest.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         let fetchResultController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
         return fetchResultController
@@ -87,6 +125,11 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
         let income = self.fetchResultController.objectAtIndexPath(indexPath) as! DailyIncome
         switch (editingStyle) {
         case .Delete :
+            sumIncome = sumIncome - Int(income.income)
+            sumRealIncome = sumRealIncome - Double(Int(income.income) * Int((income.shops?.percent)!) / 100)
+            sumCardTip = sumCardTip - Int(income.cardTip)
+            sumCashTip = sumCashTip - Int(income.cashTip)
+            showSum()
             sharedContext.deleteObject(income)
             self.saveContext()
         default:

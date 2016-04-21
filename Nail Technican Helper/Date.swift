@@ -14,6 +14,7 @@ struct Date{
     //var day : Int
     var compoments : NSDateComponents
     let calendar = NSCalendar.currentCalendar()
+    let dateFormatter = NSDateFormatter()
     
     init(date:NSDate){
         compoments = calendar.components([.Year,.Month,.Day], fromDate: date)
@@ -37,4 +38,19 @@ struct Date{
         let date = calendar.dateFromComponents(compoments)
         return date!
     }
+    
+    func getStartDateString() -> String{
+        dateFormatter.dateStyle = .MediumStyle
+        compoments.hour = 0
+        compoments.second = 0
+        let date = calendar.dateFromComponents(compoments)
+        return dateFormatter.stringFromDate(date!)
+    }
+    
+    func getEndDateString() -> String {
+        compoments.hour = 23
+        compoments.second = 59
+        let date = calendar.dateFromComponents(compoments)
+        dateFormatter.dateStyle = .MediumStyle
+        return dateFormatter.stringFromDate(date!)    }
 }

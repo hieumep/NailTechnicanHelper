@@ -16,6 +16,12 @@ class TextFieldDelegate : NSObject, UITextFieldDelegate {
         }
     }
     
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if textField.text!.isEmpty || textField.text == "0" {
+            textField.text = ""
+        }
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

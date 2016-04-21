@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51AA26271CC87C310075E672 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AA26261CC87C310075E672 /* ImageViewController.swift */; };
 		51AD6D2A1CAE3C1F00FB92B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D291CAE3C1F00FB92B2 /* AppDelegate.swift */; };
 		51AD6D2C1CAE3C1F00FB92B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D2B1CAE3C1F00FB92B2 /* ViewController.swift */; };
 		51AD6D2F1CAE3C1F00FB92B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51AD6D2D1CAE3C1F00FB92B2 /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51AA26261CC87C310075E672 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		51AD6D261CAE3C1F00FB92B2 /* Nail Technican Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nail Technican Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51AD6D291CAE3C1F00FB92B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51AD6D2B1CAE3C1F00FB92B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				51BD58071CBB53DB00D308FB /* DailyIncomeViewController.swift */,
 				51B398341CBF7257009E6E49 /* ListDailyIncomeCell.swift */,
 				51B398361CBF74A9009E6E49 /* ListDailyIncomeViewController.swift */,
+				51AA26261CC87C310075E672 /* ImageViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				TargetAttributes = {
 					51AD6D251CAE3C1F00FB92B2 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = QQLPZRZ2LG;
 					};
 				};
 			};
@@ -224,6 +228,7 @@
 				51AD6D651CB2346E00FB92B2 /* NailShopViewController.swift in Sources */,
 				51B398331CBF6418009E6E49 /* ImageCache.swift in Sources */,
 				51DE499A1CB38C730078BDED /* NailShop.swift in Sources */,
+				51AA26271CC87C310075E672 /* ImageViewController.swift in Sources */,
 				51B398391CC0CF43009E6E49 /* Date.swift in Sources */,
 				51DE499C1CB4D4010078BDED /* DailyIncome.swift in Sources */,
 				51AD6D321CAE3C1F00FB92B2 /* Model.xcdatamodeld in Sources */,
@@ -359,10 +364,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Nail Technican Helper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Ronald.Nail-Technican-Helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -370,10 +379,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Nail Technican Helper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Ronald.Nail-Technican-Helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

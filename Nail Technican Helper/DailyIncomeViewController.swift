@@ -59,6 +59,15 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         tapRecognizer!.numberOfTapsRequired = 1
         let tomorrow = Date(date: NSDate(), addDay: 1)
         datePicker.maximumDate = tomorrow.getEndDate()
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(DailyIncomeViewController.imageTapped(_:)))
+        imageView.userInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    func imageTapped(image : AnyObject){
+        let imageVC = storyboard?.instantiateViewControllerWithIdentifier("imageViewController") as! ImageViewController
+        imageVC.image = imageView.image
+        self.presentViewController(imageVC, animated: true, completion: nil)
     }
     
     func handleSingeTap(recognizer : UITapGestureRecognizer){
@@ -155,6 +164,12 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
             print(error)
             abort()
         }
+    }
+    
+    
+    
+    @IBAction func deletePhoto(sender: AnyObject) {
+        imageView.image = nil
     }
     
     lazy var sharedContext : NSManagedObjectContext = {
