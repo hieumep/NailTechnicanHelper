@@ -74,4 +74,18 @@ class ImageCache {
         
         return fullURL.path!
     }
+    
+    func getImage(image: UIImage?, date: NSDate) -> String? {
+        // let dateFormatter = NSDateFormatter()
+        let calendar = NSCalendar.currentCalendar()
+        let compoments = calendar.components([.Year,.Month,.Day,.Hour,.Minute,.Second], fromDate: date)
+        let nameFile = "\(compoments.year)\(compoments.month)\(compoments.day)\(compoments.hour)\(compoments.minute)\(compoments.second)"
+        let identifier = "\(nameFile).jpg"
+        print(identifier)
+        guard let image = image else {
+            return nil
+        }
+        storeImage(image, withIdentifier: identifier)
+        return identifier
+    }
 }

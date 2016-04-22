@@ -18,6 +18,12 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     var sumCashTip = 0
     let startDate = Date(date: NSDate(), addDay: -7)
     let endDate = Date(date: NSDate())
+    lazy var fetchRequest : NSFetchRequest = {
+        let fetchRequest = NSFetchRequest(entityName: "DailyIncome")
+        fetchRequest.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        return fetchRequest
+    }()
     
     @IBOutlet weak var sumIncomeLabel: UILabel!
     @IBOutlet weak var distanceDate: UILabel!
@@ -28,7 +34,7 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-       
+        
         tableView.reloadData()
         incomes = fetchResultController.fetchedObjects as? [DailyIncome]
         distanceDate.text = "\(startDate.getStartDateString()) -> \(endDate.getEndDateString())"
@@ -76,10 +82,9 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     }
     
     lazy var fetchResultController : NSFetchedResultsController = {
-        let fetchRequest = NSFetchRequest(entityName: "DailyIncome")
-        fetchRequest.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        let fetchResultController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+       
+        let fetchResultController =  NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+    
         return fetchResultController
     }()
     
@@ -102,6 +107,16 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let dailyIncome = self.fetchResultController.objectAtIndexPath(indexPath) as! DailyIncome
+        let dailyIncomeVC = storyboard?.instantiateViewControllerWithIdentifier("dailyIncomeVC") as! DailyIncomeViewController
+        dailyIncomeVC.dailyIncome = dailyIncome
+        dailyIncomeVC.fetchRequest = self.fetchRequest
+        print(self.fetchRequest)
+        dailyIncomeVC.indexPath = indexPath
+        self.presentViewController(dailyIncomeVC, animated: true, completion: nil)
+    }
+    
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.tableView.beginUpdates()
     }
@@ -109,6 +124,7 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.tableView.endUpdates()
     }
+    
     
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch  type {

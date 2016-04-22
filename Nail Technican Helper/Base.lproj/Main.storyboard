@@ -25,7 +25,7 @@
         <!--Daily Income-->
         <scene sceneID="htv-Jp-bT6">
             <objects>
-                <viewController title="Daily Income" id="Fz5-VS-F4c" customClass="DailyIncomeViewController" customModule="Nail_Technican_Helper" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="dailyIncomeVC" title="Daily Income" id="Fz5-VS-F4c" customClass="DailyIncomeViewController" customModule="Nail_Technican_Helper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5Oh-T2-ghj"/>
                         <viewControllerLayoutGuide type="bottom" id="mN7-EN-bUi"/>

@@ -36,18 +36,6 @@ class DailyIncome : NSManagedObject {
         income = dailyIncomeDict[keys.income] as! Int
         cardTip = dailyIncomeDict[keys.cardTip] as! Int
         cashTip = dailyIncomeDict[keys.cashTip] as! Int
-        let image = dailyIncomeDict[keys.photo] as? UIImage
-        photo = getImage(image, date: date)
-        
-    }
-    
-    func getImage(image: UIImage?, date: NSDate) -> String? {
-        let dateFormatter = NSDateFormatter()
-        let identifier = dateFormatter.stringFromDate(date) + ".jpg"
-        guard let image = image else {
-            return nil
-        }
-        ImageCache.sharedIntanse().storeImage(image, withIdentifier: identifier)
-        return identifier
+        photo = dailyIncomeDict[keys.photo] as? String
     }
 }
