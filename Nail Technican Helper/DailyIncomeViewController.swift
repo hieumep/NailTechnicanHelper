@@ -38,6 +38,18 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     var flagEdit = false
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        appDelegate.iAdBannerAdView.center = CGPoint(
+            x: view.frame.midX,
+            y:  view.frame.height - appDelegate.iAdBannerAdView.frame.height / 2)
+        view.addSubview(appDelegate.iAdBannerAdView)        
+        
+        appDelegate.adMobBannerAdView.rootViewController = self
+        appDelegate.adMobBannerAdView.center = CGPoint(
+            x: view.frame.midX,
+            y: view.frame.height - appDelegate.adMobBannerAdView.frame.height / 2)
+        view.addSubview(appDelegate.adMobBannerAdView)
+        
         getCurrentShop(nil)
         let date = formatDate(NSDate())
         dateButton.setTitle("\(date)", forState: .Normal)
@@ -50,6 +62,7 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         addKeyboardDismissRecognizer()
     }
     
+    
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         removeKeyboardDismissRecognizer()
@@ -57,6 +70,7 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.canDisplayBannerAds = true
         cardTipsText.delegate = textFieldDelegate
         cashTipsText.delegate = textFieldDelegate
         pickShopLabel.text = " You don't set up Nail Shop yet, please tap EDIT to pick your current Nail Shop"
@@ -267,7 +281,7 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
             print(photo)
         }
         self.title = "Edit"
-        self.saveButton.setTitle("Edit'", forState: .Normal)
+        self.saveButton.setTitle("Edit", forState: .Normal)
         getCurrentShop(dailyIncome.shops)
         flagEdit = true
     }

@@ -31,15 +31,44 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     @IBOutlet weak var sumCardTipLabel: UILabel!
     @IBOutlet weak var sumCashTipLabel: UILabel!
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        appDelegate.iAdBannerAdView.center = CGPoint(
+            x: 0.0,
+            y:  view.frame.height - appDelegate.iAdBannerAdView.frame.height / 2)
+        view.addSubview(appDelegate.iAdBannerAdView)
+        
+        
+        appDelegate.adMobBannerAdView.rootViewController = self
+        appDelegate.adMobBannerAdView.center = CGPoint(
+            x: view.frame.midX,
+            y: view.frame.height - appDelegate.adMobBannerAdView.frame.height / 2)
+        view.addSubview(appDelegate.adMobBannerAdView)
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
         tableView.reloadData()
         incomes = fetchResultController.fetchedObjects as? [DailyIncome]
         distanceDate.text = "\(startDate.getStartDateString()) -> \(endDate.getEndDateString())"
         sum(incomes)
     }
+    
+    func loadAds(){
+        appDelegate.iAdBannerAdView.center = CGPoint(
+            x: view.frame.midX,
+            y:  view.frame.height - appDelegate.iAdBannerAdView.frame.height / 2)
+        if !appDelegate.iAdBannerAdView.bannerLoaded {
+            view.addSubview(appDelegate.iAdBannerAdView)
+        }
+        
+        appDelegate.adMobBannerAdView.rootViewController = self
+        appDelegate.adMobBannerAdView.center = CGPoint(
+            x: view.frame.midX,
+            y: view.frame.height - appDelegate.adMobBannerAdView.frame.height / 2)
+        view.addSubview(appDelegate.adMobBannerAdView)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         do {
