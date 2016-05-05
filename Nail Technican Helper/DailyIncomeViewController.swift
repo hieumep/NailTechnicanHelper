@@ -162,6 +162,7 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
                 var incomes = try sharedContext.executeFetchRequest(self.fetchRequest!) as? [DailyIncome]
                 if incomes?.count >= 1 {
                     let income = incomes?[indexPath!.row]
+                    income?.date = date
                     income?.income = Int(incomeText.text!)!
                     income?.cardTip = Int(cardTipsText.text!)!
                     income?.cashTip = Int(cashTipsText.text!)!

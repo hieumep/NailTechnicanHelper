@@ -16,14 +16,17 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     var sumRealIncome = 0.0
     var sumCardTip = 0
     var sumCashTip = 0
-    let startDate = Date(date: NSDate(), addDay: -7)
-    let endDate = Date(date: NSDate())
-    lazy var fetchRequest : NSFetchRequest = {
+    var pickFromDate : NSDate? = nil
+    var pickToDate : NSDate? = nil
+    
+    var startDate = Date(date: NSDate(), addDay: -7)
+    var endDate = Date(date: NSDate())
+    var fetchRequest : NSFetchRequest? = nil /* = {
         let fetchRequest = NSFetchRequest(entityName: "DailyIncome")
         fetchRequest.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         return fetchRequest
-    }()
+    }()*/
     
     @IBOutlet weak var sumIncomeLabel: UILabel!
     @IBOutlet weak var distanceDate: UILabel!
@@ -44,6 +47,8 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
             x: view.frame.midX,
             y: view.frame.height - appDelegate.adMobBannerAdView.frame.height / 2)
         view.addSubview(appDelegate.adMobBannerAdView)
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -71,8 +76,17 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let _ = pickFromDate {
+            startDate = Date(date: pickFromDate!)
+            endDate = Date(date:pickToDate!)
+           // print(self.fetchRequest)
+        }
         do {
+            fetchRequest = NSFetchRequest(entityName: "DailyIncome")
+            fetchRequest!.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
+            fetchRequest!.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
             try fetchResultController.performFetch()
+            print(self.fetchRequest)
         }catch{
             print(error)
         }
@@ -112,7 +126,7 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     
     lazy var fetchResultController : NSFetchedResultsController = {
        
-        let fetchResultController =  NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchResultController =  NSFetchedResultsController(fetchRequest: self.fetchRequest!, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
     
         return fetchResultController
     }()

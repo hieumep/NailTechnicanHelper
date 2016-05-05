@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		512F650F1CD8560800562623 /* PickDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512F650E1CD8560800562623 /* PickDateViewController.swift */; };
 		51875B531CCD531A00EF13CE /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51875B491CCD531A00EF13CE /* GoogleMobileAds.framework */; };
 		51AA26271CC87C310075E672 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AA26261CC87C310075E672 /* ImageViewController.swift */; };
 		51AD6D2A1CAE3C1F00FB92B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D291CAE3C1F00FB92B2 /* AppDelegate.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		512F650E1CD8560800562623 /* PickDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickDateViewController.swift; sourceTree = "<group>"; };
 		51875B491CCD531A00EF13CE /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "../GoogleMobileAdsSdkiOS-7.7.1/GoogleMobileAds.framework"; sourceTree = "<group>"; };
 		51AA26261CC87C310075E672 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		51AD6D261CAE3C1F00FB92B2 /* Nail Technican Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nail Technican Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +126,7 @@
 				51B398341CBF7257009E6E49 /* ListDailyIncomeCell.swift */,
 				51B398361CBF74A9009E6E49 /* ListDailyIncomeViewController.swift */,
 				51AA26261CC87C310075E672 /* ImageViewController.swift */,
+				512F650E1CD8560800562623 /* PickDateViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				51BD58021CB6352A00D308FB /* NailShopCellController.swift in Sources */,
 				51AD6D2A1CAE3C1F00FB92B2 /* AppDelegate.swift in Sources */,
 				51DE49971CB375020078BDED /* CoreDataStackManager.swift in Sources */,
+				512F650F1CD8560800562623 /* PickDateViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

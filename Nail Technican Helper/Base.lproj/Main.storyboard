@@ -384,11 +384,116 @@
                     <connections>
                         <segue destination="ROd-Cm-SVS" kind="relationship" relationship="viewControllers" id="ygo-9t-KD3"/>
                         <segue destination="odv-5m-IuE" kind="relationship" relationship="viewControllers" id="KQe-RF-yC9"/>
+                        <segue destination="HWP-hS-P1N" kind="relationship" relationship="viewControllers" id="dub-DA-1Dv"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hW4-Lo-YeY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-402" y="430"/>
+        </scene>
+        <!--Pick Date-->
+        <scene sceneID="eto-83-dmE">
+            <objects>
+                <navigationController id="HWP-hS-P1N" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Pick Date" id="Vdb-Kt-f7d"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FfN-tg-7rh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="a7L-6s-q8o" kind="relationship" relationship="rootViewController" id="5A2-t2-0bW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N11-tx-RyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1131" y="1122"/>
+        </scene>
+        <!--Pick Date-->
+        <scene sceneID="lpU-lk-s6L">
+            <objects>
+                <viewController id="a7L-6s-q8o" customClass="PickDateViewController" customModule="Nail_Technican_Helper" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HRF-Gn-VX8"/>
+                        <viewControllerLayoutGuide type="bottom" id="0gF-Nc-7QW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="14u-qn-YuY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From date :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zz1-PV-B4j">
+                                <rect key="frame" x="20" y="72" width="91" height="21"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="d1W-cQ-qlP">
+                                <rect key="frame" x="0.0" y="96" width="600" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Dxa-js-eVK"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="483936544.04645902">
+                                    <!--2016-05-03 02:49:04 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="fromDatePick:" destination="a7L-6s-q8o" eventType="valueChanged" id="29f-Tr-Wm1"/>
+                                </connections>
+                            </datePicker>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="764-TV-iJX">
+                                <rect key="frame" x="0.0" y="283" width="600" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="rAE-n6-8gS"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="483936623.09129399">
+                                    <!--2016-05-03 02:50:23 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="toDatePick:" destination="a7L-6s-q8o" eventType="valueChanged" id="DfO-2n-neR"/>
+                                </connections>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RQ1-Cj-xuj">
+                                <rect key="frame" x="271" y="441" width="59" height="33"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="sA2-r8-TQQ" kind="show" identifier="showListSegue" id="P1x-Ys-lZU"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5j-if-ni7">
+                                <rect key="frame" x="20" y="254" width="65" height="21"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Zz1-PV-B4j" firstAttribute="top" secondItem="HRF-Gn-VX8" secondAttribute="bottom" constant="8" id="4KW-VO-nzq"/>
+                            <constraint firstItem="Zz1-PV-B4j" firstAttribute="leading" secondItem="14u-qn-YuY" secondAttribute="leading" constant="20" id="5K8-ZX-2qE"/>
+                            <constraint firstItem="764-TV-iJX" firstAttribute="top" secondItem="HRF-Gn-VX8" secondAttribute="bottom" constant="219" id="BEQ-s9-bSa"/>
+                            <constraint firstItem="r5j-if-ni7" firstAttribute="leading" secondItem="14u-qn-YuY" secondAttribute="leading" constant="20" id="N45-aB-KMD"/>
+                            <constraint firstAttribute="trailing" secondItem="d1W-cQ-qlP" secondAttribute="trailing" id="Nhp-lq-gpn"/>
+                            <constraint firstAttribute="trailing" secondItem="764-TV-iJX" secondAttribute="trailing" id="Osf-79-HMr"/>
+                            <constraint firstItem="764-TV-iJX" firstAttribute="leading" secondItem="14u-qn-YuY" secondAttribute="leading" id="QkV-nU-G36"/>
+                            <constraint firstItem="r5j-if-ni7" firstAttribute="top" secondItem="HRF-Gn-VX8" secondAttribute="bottom" constant="190" id="b8d-fg-tTO"/>
+                            <constraint firstItem="RQ1-Cj-xuj" firstAttribute="top" secondItem="HRF-Gn-VX8" secondAttribute="bottom" constant="377" id="nfU-pV-1LO"/>
+                            <constraint firstItem="d1W-cQ-qlP" firstAttribute="leading" secondItem="14u-qn-YuY" secondAttribute="leading" id="oyA-1U-cUK"/>
+                            <constraint firstItem="d1W-cQ-qlP" firstAttribute="top" secondItem="HRF-Gn-VX8" secondAttribute="bottom" constant="32" id="qqy-yE-OfM"/>
+                            <constraint firstItem="RQ1-Cj-xuj" firstAttribute="centerX" secondItem="14u-qn-YuY" secondAttribute="centerX" id="rAF-lr-6T5"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pick Date" id="THO-ff-1IP"/>
+                    <connections>
+                        <outlet property="fromDatePicker" destination="d1W-cQ-qlP" id="k1p-Ht-yLV"/>
+                        <outlet property="toDatePicker" destination="764-TV-iJX" id="nBQ-Bf-9ya"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0jg-JO-ZkX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="12" y="994"/>
         </scene>
         <!--List-->
         <scene sceneID="SPi-tF-ZHA">
@@ -405,7 +510,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hSr-Ui-47Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-259" y="1156"/>
+            <point key="canvasLocation" x="294" y="1491"/>
         </scene>
         <!--List Daily Income-->
         <scene sceneID="LKG-Fx-Wtw">
@@ -631,7 +736,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G3H-Vi-xiz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="406" y="1152"/>
+            <point key="canvasLocation" x="873" y="1021"/>
         </scene>
         <!--NailShop-->
         <scene sceneID="Jlf-g2-Q5n">
@@ -642,4 +747,7 @@
             <point key="canvasLocation" x="1330.5" y="757"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="P1x-Ys-lZU"/>
+    </inferredMetricsTieBreakers>
 </document>
