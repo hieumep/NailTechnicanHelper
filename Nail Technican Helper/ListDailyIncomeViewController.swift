@@ -21,12 +21,7 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     
     var startDate = Date(date: NSDate(), addDay: -7)
     var endDate = Date(date: NSDate())
-    var fetchRequest : NSFetchRequest? = nil /* = {
-        let fetchRequest = NSFetchRequest(entityName: "DailyIncome")
-        fetchRequest.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        return fetchRequest
-    }()*/
+    var fetchRequest : NSFetchRequest? = nil
     
     @IBOutlet weak var sumIncomeLabel: UILabel!
     @IBOutlet weak var distanceDate: UILabel!
@@ -37,15 +32,15 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         appDelegate.iAdBannerAdView.center = CGPoint(
-            x: 0.0,
-            y:  view.frame.height - appDelegate.iAdBannerAdView.frame.height / 2)
+            x:  view.frame.midX,
+            y:  appDelegate.iAdBannerAdView.frame.height / 2)
         view.addSubview(appDelegate.iAdBannerAdView)
         
         
         appDelegate.adMobBannerAdView.rootViewController = self
         appDelegate.adMobBannerAdView.center = CGPoint(
             x: view.frame.midX,
-            y: view.frame.height - appDelegate.adMobBannerAdView.frame.height / 2)
+            y: appDelegate.adMobBannerAdView.frame.height / 2)
         view.addSubview(appDelegate.adMobBannerAdView)
         
         
@@ -79,14 +74,12 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
         if let _ = pickFromDate {
             startDate = Date(date: pickFromDate!)
             endDate = Date(date:pickToDate!)
-           // print(self.fetchRequest)
         }
         do {
             fetchRequest = NSFetchRequest(entityName: "DailyIncome")
             fetchRequest!.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
             fetchRequest!.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
             try fetchResultController.performFetch()
-            print(self.fetchRequest)
         }catch{
             print(error)
         }
@@ -155,7 +148,6 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
         let dailyIncomeVC = storyboard?.instantiateViewControllerWithIdentifier("dailyIncomeVC") as! DailyIncomeViewController
         dailyIncomeVC.dailyIncome = dailyIncome
         dailyIncomeVC.fetchRequest = self.fetchRequest
-        print(self.fetchRequest)
         dailyIncomeVC.indexPath = indexPath
         self.presentViewController(dailyIncomeVC, animated: true, completion: nil)
     }
