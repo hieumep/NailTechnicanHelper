@@ -42,13 +42,15 @@ class NailShopViewController : UIViewController {
     }
     
     override func viewDidLoad() {
-        addressTextView.layer.borderWidth = 0.5
+        addressTextView.layer.borderWidth = 0.5        
+        addressTextView.layer.cornerRadius = 8.0
         commissionTextField.delegate = textFieldDelegate
         nailShopTextField.delegate = textFieldDelegate
         phoneNumberTextField.delegate = textFieldDelegate
         if let shopInfo = shop {
             getShopEditInfo(shopInfo)
         }
+        
     }
     
     @IBAction func SaveShop(sender: AnyObject) {

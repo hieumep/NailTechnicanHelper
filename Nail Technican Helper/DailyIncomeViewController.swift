@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import QuartzCore
 
 class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
@@ -73,7 +74,7 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         self.canDisplayBannerAds = true
         cardTipsText.delegate = textFieldDelegate
         cashTipsText.delegate = textFieldDelegate
-        pickShopLabel.text = " You don't set up Nail Shop yet, please tap EDIT to pick your current Nail Shop"
+        pickShopLabel.text = " You don't setup Nail Shop yet, please tap EDIT to pick your current Nail Shop"
         if let dailyIncome = dailyIncome {
             getInformationIncome(dailyIncome)
         }
@@ -87,6 +88,12 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(DailyIncomeViewController.imageTapped(_:)))
         imageView.userInteractionEnabled = true
         imageView.addGestureRecognizer(tapGestureRecognizer)
+        
+        //set layer for ImageView
+        imageView.layer.borderWidth = 1.0
+        imageView.layer.cornerRadius = 8.0
+      //  imageView.layer.borderColor = CGColor(GL_GREEN)
+        
     }
     
     // segue to Image View Controller when tap image
