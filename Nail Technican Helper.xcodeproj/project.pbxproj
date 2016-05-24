@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		512F650F1CD8560800562623 /* PickDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512F650E1CD8560800562623 /* PickDateViewController.swift */; };
-		517C61A41CED54910001EFD3 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517C61A31CED54910001EFD3 /* GoogleMobileAds.framework */; };
 		51AA26271CC87C310075E672 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AA26261CC87C310075E672 /* ImageViewController.swift */; };
 		51AD6D2A1CAE3C1F00FB92B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D291CAE3C1F00FB92B2 /* AppDelegate.swift */; };
 		51AD6D2C1CAE3C1F00FB92B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D2B1CAE3C1F00FB92B2 /* ViewController.swift */; };
@@ -30,11 +29,11 @@
 		51DE499A1CB38C730078BDED /* NailShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DE49991CB38C730078BDED /* NailShop.swift */; };
 		51DE499C1CB4D4010078BDED /* DailyIncome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DE499B1CB4D4010078BDED /* DailyIncome.swift */; };
 		51DE499E1CB4DD9B0078BDED /* EachCustomerIncome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DE499D1CB4DD9B0078BDED /* EachCustomerIncome.swift */; };
+		51F1C92D1CF0124B008674D2 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F1C92C1CF0124B008674D2 /* GoogleMobileAds.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		512F650E1CD8560800562623 /* PickDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickDateViewController.swift; sourceTree = "<group>"; };
-		517C61A31CED54910001EFD3 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		51AA26261CC87C310075E672 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		51AD6D261CAE3C1F00FB92B2 /* Nail Technican Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nail Technican Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51AD6D291CAE3C1F00FB92B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +57,7 @@
 		51DE49991CB38C730078BDED /* NailShop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NailShop.swift; sourceTree = "<group>"; };
 		51DE499B1CB4D4010078BDED /* DailyIncome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyIncome.swift; sourceTree = "<group>"; };
 		51DE499D1CB4DD9B0078BDED /* EachCustomerIncome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EachCustomerIncome.swift; sourceTree = "<group>"; };
+		51F1C92C1CF0124B008674D2 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				517C61A41CED54910001EFD3 /* GoogleMobileAds.framework in Frameworks */,
+				51F1C92D1CF0124B008674D2 /* GoogleMobileAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +91,7 @@
 		51AD6D281CAE3C1F00FB92B2 /* Nail Technican Helper */ = {
 			isa = PBXGroup;
 			children = (
-				517C61A31CED54910001EFD3 /* GoogleMobileAds.framework */,
+				51F1C92C1CF0124B008674D2 /* GoogleMobileAds.framework */,
 				51DE49981CB38B240078BDED /* Model */,
 				51DE49951CB374DF0078BDED /* Support */,
 				51AD6D661CB236AC00FB92B2 /* Controller Delegate */,
@@ -382,12 +382,7 @@
 				);
 				INFOPLIST_FILE = "Nail Technican Helper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Nail",
-					Technican,
-					Helper,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "Ronald.Nail-Technican-Helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -409,12 +404,7 @@
 				);
 				INFOPLIST_FILE = "Nail Technican Helper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Nail",
-					Technican,
-					Helper,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "Ronald.Nail-Technican-Helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

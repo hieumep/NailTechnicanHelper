@@ -9,48 +9,51 @@
 import Foundation
 
 struct Date{
-    //var year : Int
-    //var month : Int
-    //var day : Int
     var compoments : NSDateComponents
     let calendar = NSCalendar.currentCalendar()
     let dateFormatter = NSDateFormatter()
+    var currentDate : NSDate? = nil
     
     init(date:NSDate){
         compoments = calendar.components([.Year,.Month,.Day], fromDate: date)
+        currentDate = calendar.dateFromComponents(compoments)
     }
     
     init(date:NSDate, addDay : Int){
         let newDate = calendar.dateByAddingUnit(.Day, value: addDay, toDate: date, options:NSCalendarOptions.init(rawValue: 0))
-        compoments = calendar.components([.Year,.Month,.Day], fromDate: newDate!)
+        compoments = calendar.components([.Year,.Month,.Day,], fromDate: newDate!)      
+        currentDate = calendar.dateFromComponents(compoments)
     }
     
     func getStartDate() -> NSDate{
         compoments.hour = 0
+        compoments.minute = 0
         compoments.second = 0
-        let date = calendar.dateFromComponents(compoments)
-        return date!
+        print("test \(currentDate)")
+        return currentDate!
     }
     
     func getEndDate() -> NSDate{
-        compoments.hour = 23
-        compoments.second = 59
-        let date = calendar.dateFromComponents(compoments)
-        return date!
+        let components = NSDateComponents()
+        components.day = 1
+        var endDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: currentDate!, options: [])!
+        endDate = endDate.dateByAddingTimeInterval(-1)
+        return endDate
     }
     
     func getStartDateString() -> String{
         dateFormatter.dateStyle = .MediumStyle
         compoments.hour = 0
-        compoments.second = 0
+        compoments.minute = 0
         let date = calendar.dateFromComponents(compoments)
         return dateFormatter.stringFromDate(date!)
     }
     
     func getEndDateString() -> String {
         compoments.hour = 23
-        compoments.second = 59
+        compoments.minute = 59
         let date = calendar.dateFromComponents(compoments)
         dateFormatter.dateStyle = .MediumStyle
-        return dateFormatter.stringFromDate(date!)    }
+        return dateFormatter.stringFromDate(date!)
+    }
 }

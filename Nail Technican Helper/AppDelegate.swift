@@ -57,6 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,ADBannerViewDelegate, GADB
         iAdBannerAdView.hidden = false
     }
     
+    func adView(bannerView: GADBannerView!, didFailToReceiveAdWithError error: GADRequestError!) {
+        adMobBannerAdView.hidden = true
+    }    
+    
     func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
         iAdBannerAdView.hidden = true
         // Try Admob here
