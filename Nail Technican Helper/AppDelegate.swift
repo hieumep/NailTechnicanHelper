@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,ADBannerViewDelegate, GADB
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.        
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,ADBannerViewDelegate, GADB
         adMobBannerAdView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         let request = GADRequest()
         request.testDevices = [ kGADSimulatorID ]; // Simulator
-        adMobBannerAdView.loadRequest(request)
+        adMobBannerAdView.loadRequest(GADRequest())
     }
     
     func adViewDidReceiveAd(bannerView: GADBannerView!) {

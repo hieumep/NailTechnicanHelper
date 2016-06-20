@@ -50,10 +50,7 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
             x: view.frame.midX,
             y: view.frame.height - appDelegate.adMobBannerAdView.frame.height / 2)
         view.addSubview(appDelegate.adMobBannerAdView)
-        
-        getCurrentShop(nil)
-        let date = formatDate(NSDate())
-        dateButton.setTitle("\(date)", forState: .Normal)
+        getCurrentShop(nil)        
         incomeText.delegate = self
     }
     
@@ -61,22 +58,35 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         super.viewDidAppear(animated)
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         addKeyboardDismissRecognizer()
+        
+    }
+    
+    func setDate(){
+        let dateString = formatDate(NSDate())
+        dateButton.setTitle("\(dateString)", forState: .Normal)
+        print(dateString)
+        date = NSDate()
+        datePicker.date = date
     }
     
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         removeKeyboardDismissRecognizer()
+     //   NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(setDate), name: UIApplicationDidBecomeActiveNotification, object: nil)
         self.canDisplayBannerAds = true
         cardTipsText.delegate = textFieldDelegate
         cashTipsText.delegate = textFieldDelegate
         pickShopLabel.text = " You don't setup Nail Shop yet, please tap EDIT to pick your current Nail Shop"
         if let dailyIncome = dailyIncome {
             getInformationIncome(dailyIncome)
+        }else{
+            setDate()
         }
         //set tao action to hide keyboard
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSingeTap))
@@ -284,6 +294,8 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         self.realIncomeLabel.text = "\(realIncomeLabel)"
         cardTipsText.text = "\(dailyIncome.cardTip)"
         cashTipsText.text = "\(dailyIncome.cashTip)"
+        let dateString = formatDate(dailyIncome.date)
+        dateButton.setTitle("\(dateString)", forState: .Normal)
         if let photo = dailyIncome.photo {
             imageView.image = ImageCache.sharedIntanse().imageWithIdentifier(photo)
             print(photo)

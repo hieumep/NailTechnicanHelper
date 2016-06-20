@@ -54,7 +54,7 @@ class PickDateViewController : UIViewController, GADInterstitialDelegate{
     }
     
     func loadInterstitial() {
-        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/2934735716")
         interstitial.delegate = self
         
         // Request test ads on devices you specify. Your test device ID is printed to the console when

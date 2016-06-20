@@ -43,15 +43,35 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
             y: appDelegate.adMobBannerAdView.frame.height / 2)
         view.addSubview(appDelegate.adMobBannerAdView)
         
-        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        tableView.reloadData()
-        incomes = fetchResultController.fetchedObjects as? [DailyIncome]
+//        tableView.reloadData()
+    //    setDateAndLoadData()
+    }
+    
+    func setDateAndLoadData() {
+        if let _ = pickFromDate {
+            startDate = Date(date: pickFromDate!)
+            endDate = Date(date:pickToDate!)
+        }else {
+            startDate = Date(date: NSDate(), addDay: -7)
+            endDate = Date(date: NSDate())
+        }
+       
         distanceDate.text = "\(startDate.getStartDateString()) -> \(endDate.getEndDateString())"
+        do {
+            fetchRequest!.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
+            try fetchResultController.performFetch()
+        }catch{
+            print(error)
+        }
+    //    fetchResultController.delegate = self
+        incomes = fetchResultController.fetchedObjects as? [DailyIncome]
         sum(incomes)
+        tableView.reloadData()
+        
     }
     
     func loadAds(){
@@ -71,21 +91,34 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let _ = pickFromDate {
+        
+     /*   if let _ = pickFromDate {
             startDate = Date(date: pickFromDate!)
             endDate = Date(date:pickToDate!)
         }
         do {
+ */
             fetchRequest = NSFetchRequest(entityName: "DailyIncome")
-            fetchRequest!.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
+          //  fetchRequest!.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
             fetchRequest!.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-            try fetchResultController.performFetch()
+         /*   try fetchResultController.performFetch()
         }catch{
             print(error)
         }
+ 
         fetchResultController.delegate = self
-        
+        sum(incomes)
+ */
+        fetchResultController.delegate = self
+        setDateAndLoadData()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(setDateAndLoadData), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     func sum(incomes : [DailyIncome]?){
         sumIncome = 0
         sumRealIncome = 0.0

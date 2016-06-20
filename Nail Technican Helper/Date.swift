@@ -21,7 +21,7 @@ struct Date{
     
     init(date:NSDate, addDay : Int){
         let newDate = calendar.dateByAddingUnit(.Day, value: addDay, toDate: date, options:NSCalendarOptions.init(rawValue: 0))
-        compoments = calendar.components([.Year,.Month,.Day,], fromDate: newDate!)      
+        compoments = calendar.components([.Year,.Month,.Day,], fromDate: newDate!)
         currentDate = calendar.dateFromComponents(compoments)
     }
     
