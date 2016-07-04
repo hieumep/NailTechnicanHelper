@@ -225,16 +225,16 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
             fetchRequest.predicate = NSPredicate(format: "selected==true")
             do {
                let shops = try sharedContext.executeFetchRequest(fetchRequest) as? [NailShop]
-            if shops?.count >= 1  {
-                shopLabel.text = shops![0].nailShop
-                percentLabel.text = "\(shops![0].percent)"
-                shop = shops![0]
-                mainView.hidden = false
-                pickShopLabel.hidden = true
-            }else {
-                mainView.hidden = true
-                pickShopLabel.hidden = false
-                }
+                if shops?.count >= 1  {
+                    shopLabel.text = shops![0].nailShop
+                    percentLabel.text = "\(shops![0].percent)"
+                    shop = shops![0]
+                    mainView.hidden = false
+                    pickShopLabel.hidden = true
+                }else {
+                    mainView.hidden = true
+                    pickShopLabel.hidden = false
+                    }
             }catch{
                 print(error)
                 abort()

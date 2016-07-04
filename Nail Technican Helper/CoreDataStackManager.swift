@@ -17,6 +17,11 @@ class CoreDataStackManager {
         }
         return Static.instance
     }
+    let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
+    
+    func mirgationData(option : NSDictionary?){
+        
+    }
     
     lazy var applicationDocumentDirectory : NSURL = {
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
@@ -32,7 +37,7 @@ class CoreDataStackManager {
         let coodinator : NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managerObjectModel)
         let url =  self.applicationDocumentDirectory.URLByAppendingPathComponent(SQLite_File_Name)
         do {
-            try coodinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            try coodinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: self.options)
         }catch {
             abort()
         }

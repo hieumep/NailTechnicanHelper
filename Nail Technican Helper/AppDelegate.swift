@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,ADBannerViewDelegate, GADB
     var adMobBannerAdView: GADBannerView! = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        //CoreDataStackManager.sharedInstance().mirgationData([NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true])
         // Override point for customization after application launch.
         iAdBannerAdView.delegate = self
         iAdBannerAdView.hidden = true

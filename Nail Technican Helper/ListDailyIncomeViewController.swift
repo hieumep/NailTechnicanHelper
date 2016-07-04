@@ -47,7 +47,8 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-//        tableView.reloadData()
+        tableView.reloadData()
+        sum(incomes)
     //    setDateAndLoadData()
     }
     

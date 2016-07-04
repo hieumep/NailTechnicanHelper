@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		512664901D17336C00AA0FC6 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5126648F1D17336C00AA0FC6 /* GoogleMobileAds.framework */; };
+		512664CF1D236EAF00AA0FC6 /* UpdateDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512664CE1D236EAF00AA0FC6 /* UpdateDataViewController.swift */; };
+		512664D41D2B15D900AA0FC6 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 512664D31D2B15D900AA0FC6 /* GoogleMobileAds.framework */; };
 		512F650F1CD8560800562623 /* PickDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512F650E1CD8560800562623 /* PickDateViewController.swift */; };
 		51AA26271CC87C310075E672 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AA26261CC87C310075E672 /* ImageViewController.swift */; };
 		51AD6D2A1CAE3C1F00FB92B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D291CAE3C1F00FB92B2 /* AppDelegate.swift */; };
@@ -33,7 +34,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5126648F1D17336C00AA0FC6 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "Nail Technican Helper/GoogleMobileAds.framework"; sourceTree = "<group>"; };
+		512664CE1D236EAF00AA0FC6 /* UpdateDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateDataViewController.swift; sourceTree = "<group>"; };
+		512664D21D2B14D500AA0FC6 /* Modelv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Modelv2.xcdatamodel; sourceTree = "<group>"; };
+		512664D31D2B15D900AA0FC6 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		512F650E1CD8560800562623 /* PickDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickDateViewController.swift; sourceTree = "<group>"; };
 		51AA26261CC87C310075E672 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		51AD6D261CAE3C1F00FB92B2 /* Nail Technican Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nail Technican Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				512664901D17336C00AA0FC6 /* GoogleMobileAds.framework in Frameworks */,
+				512664D41D2B15D900AA0FC6 /* GoogleMobileAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +78,6 @@
 		51AD6D1D1CAE3C1F00FB92B2 = {
 			isa = PBXGroup;
 			children = (
-				5126648F1D17336C00AA0FC6 /* GoogleMobileAds.framework */,
 				51AD6D281CAE3C1F00FB92B2 /* Nail Technican Helper */,
 				51AD6D271CAE3C1F00FB92B2 /* Products */,
 			);
@@ -92,6 +94,7 @@
 		51AD6D281CAE3C1F00FB92B2 /* Nail Technican Helper */ = {
 			isa = PBXGroup;
 			children = (
+				512664D31D2B15D900AA0FC6 /* GoogleMobileAds.framework */,
 				51DE49981CB38B240078BDED /* Model */,
 				51DE49951CB374DF0078BDED /* Support */,
 				51AD6D661CB236AC00FB92B2 /* Controller Delegate */,
@@ -127,6 +130,7 @@
 				51B398361CBF74A9009E6E49 /* ListDailyIncomeViewController.swift */,
 				51AA26261CC87C310075E672 /* ImageViewController.swift */,
 				512F650E1CD8560800562623 /* PickDateViewController.swift */,
+				512664CE1D236EAF00AA0FC6 /* UpdateDataViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -232,6 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				512664CF1D236EAF00AA0FC6 /* UpdateDataViewController.swift in Sources */,
 				51AD6D651CB2346E00FB92B2 /* NailShopViewController.swift in Sources */,
 				51B398331CBF6418009E6E49 /* ImageCache.swift in Sources */,
 				51DE499A1CB38C730078BDED /* NailShop.swift in Sources */,
@@ -391,6 +396,12 @@
 					"$(PROJECT_DIR)/Nail",
 					Technican,
 					Helper,
+					"$(PROJECT_DIR)/Nail",
+					Technican,
+					Helper,
+					"$(PROJECT_DIR)/Nail",
+					Technican,
+					Helper,
 				);
 				INFOPLIST_FILE = "Nail Technican Helper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -410,6 +421,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Nail",
+					Technican,
+					Helper,
+					"$(PROJECT_DIR)/Nail",
+					Technican,
+					Helper,
 					"$(PROJECT_DIR)/Nail",
 					Technican,
 					Helper,
@@ -463,9 +480,10 @@
 		51AD6D301CAE3C1F00FB92B2 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				512664D21D2B14D500AA0FC6 /* Modelv2.xcdatamodel */,
 				51AD6D311CAE3C1F00FB92B2 /* Model.xcdatamodel */,
 			);
-			currentVersion = 51AD6D311CAE3C1F00FB92B2 /* Model.xcdatamodel */;
+			currentVersion = 512664D21D2B14D500AA0FC6 /* Modelv2.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
