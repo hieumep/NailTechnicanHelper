@@ -13,11 +13,12 @@ import CoreData
 class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsControllerDelegate {
     var incomes : [DailyIncome]? = [DailyIncome]()
     var sumIncome = 0
-    var sumRealIncome = 0.0
+    var sumRealIncome = 0
     var sumCardTip = 0
     var sumCashTip = 0
     var pickFromDate : NSDate? = nil
     var pickToDate : NSDate? = nil
+    let textUltilities = TextUtilities()
     
     var startDate = Date(date: NSDate(), addDay: -7)
     var endDate = Date(date: NSDate())
@@ -122,13 +123,13 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     
     func sum(incomes : [DailyIncome]?){
         sumIncome = 0
-        sumRealIncome = 0.0
+        sumRealIncome = 0
         sumCardTip = 0
         sumCashTip = 0
         if incomes?.count >= 0 {
             for i in 0..<incomes!.count {
                 sumIncome += incomes![i].income as Int
-                sumRealIncome += Double(Int(incomes![i].income) * Int((incomes![i].shops?.percent)!) / 100)
+                sumRealIncome += (Int(incomes![i].income) * Int((incomes![i].shops?.percent)!) / 100)
                 sumCardTip += incomes![i].cardTip as Int
                 sumCashTip += incomes![i].cashTip as Int
             }
@@ -137,10 +138,10 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     }
     
     func showSum(){
-        sumIncomeLabel.text = "\(sumIncome)"
-        sumRealIncomeLabel.text = "\(sumRealIncome)"
-        sumCardTipLabel.text = "\(sumCardTip)"
-        sumCashTipLabel.text = "\(sumCashTip)"
+        sumIncomeLabel.text = textUltilities.stringToNumber(String(sumIncome))
+        sumRealIncomeLabel.text = textUltilities.stringToNumber(String(sumRealIncome))
+        sumCardTipLabel.text = textUltilities.stringToNumber(String(sumCardTip))
+        sumCashTipLabel.text = textUltilities.stringToNumber(String(sumCashTip))
     }
     
     lazy var sharedContext : NSManagedObjectContext = {
@@ -166,14 +167,14 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let income = self.fetchResultController.objectAtIndexPath(indexPath) as! DailyIncome
         let cell = tableView.dequeueReusableCellWithIdentifier("listIncomeCell") as! ListDailyIncomeCell
-        let realIncome = Double(Int(income.income) *  Int((income.shops?.percent)!) / 100)
+        let realIncome = (Int(income.income) *  Int((income.shops?.percent)!) / 100)
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEE, dd MMM yyyy"
         cell.dateLabel.text = dateFormatter.stringFromDate(income.date)
-        cell.incomeLabel.text = "\(income.income)"
-        cell.realIncomeLabel.text = "\(realIncome)"
-        cell.cardTipsLabel.text = "\(income.cardTip)"
-        cell.cashTipsLabel.text = "\(income.cashTip)"
+        cell.incomeLabel.text = textUltilities.stringToNumber(String(income.income))
+        cell.realIncomeLabel.text = textUltilities.stringToNumber(String(realIncome))
+        cell.cardTipsLabel.text = textUltilities.stringToNumber(String(income.cardTip))
+        cell.cashTipsLabel.text = textUltilities.stringToNumber(String(income.cashTip))
         return cell
     }
     
@@ -211,7 +212,7 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
         switch (editingStyle) {
         case .Delete :
             sumIncome = sumIncome - Int(income.income)
-            sumRealIncome = sumRealIncome - Double(Int(income.income) * Int((income.shops?.percent)!) / 100)
+            sumRealIncome = sumRealIncome - (Int(income.income) * Int((income.shops?.percent)!) / 100)
             sumCardTip = sumCardTip - Int(income.cardTip)
             sumCashTip = sumCashTip - Int(income.cashTip)
             showSum()

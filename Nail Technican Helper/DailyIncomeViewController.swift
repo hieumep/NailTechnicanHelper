@@ -37,6 +37,7 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     var fetchRequest : NSFetchRequest?
     var indexPath : NSIndexPath?
     var flagEdit = false
+    var textUltilities = TextUtilities()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -164,9 +165,9 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         if !flagEdit {
         let incomeDict : [String : AnyObject] = [
             DailyIncome.keys.date : date,
-            DailyIncome.keys.income : Int(incomeText.text!)!,
-            DailyIncome.keys.cardTip : Int(cardTipsText.text!)!,
-            DailyIncome.keys.cashTip : Int(cashTipsText.text!)!,
+            DailyIncome.keys.income : textUltilities.stringToInt(incomeText.text!),
+            DailyIncome.keys.cardTip : textUltilities.stringToInt(cardTipsText.text!),
+            DailyIncome.keys.cashTip : textUltilities.stringToInt(cashTipsText.text!),
             DailyIncome.keys.photo : ImageCache.sharedIntanse().getImage(self.imageView.image, date: self.date) ?? ""
         ]
         let income = DailyIncome(dailyIncomeDict: incomeDict, context: sharedContext)
@@ -180,9 +181,9 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
                 if incomes?.count >= 1 {
                     let income = incomes?[indexPath!.row]
                     income?.date = date
-                    income?.income = Int(incomeText.text!)!
-                    income?.cardTip = Int(cardTipsText.text!)!
-                    income?.cashTip = Int(cashTipsText.text!)!
+                    income?.income = textUltilities.stringToInt(incomeText.text!)
+                    income?.cardTip = textUltilities.stringToInt(cardTipsText.text!)
+                    income?.cashTip = textUltilities.stringToInt(cashTipsText.text!)
                     income?.photo = ImageCache.sharedIntanse().getImage(self.imageView.image, date: self.date) ?? ""
                     saveContext()
                     self.dismissViewControllerAnimated(true, completion: nil)
@@ -259,19 +260,33 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     func textFieldDidEndEditing(textField: UITextField) {
         if !textField.text!.isEmpty {
             let percent = shop?.percent as! Int
-            let realIncomeLabel = Double(Int(textField.text!)! * percent/100)
-            self.realIncomeLabel.text = "\(realIncomeLabel)"
+            let realIncomeLabel = textUltilities.stringToInt(textField.text!) * percent / 100
+            self.realIncomeLabel.text = textUltilities.stringToNumber(String(realIncomeLabel))
         } else {
-            textField.text = "0"
-            self.realIncomeLabel.text = "0"
+            textField.text = "0.00"
+            self.realIncomeLabel.text = "0.00"
         }
     }
     
+       
     // protocols of textfied
     func textFieldDidBeginEditing(textField: UITextField) {
         if textField.text!.isEmpty || textField.text == "0" {
             textField.text = ""
         }
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        var text : String = textField.text! + string
+        if text.characters.count < 12 {
+            var newText = text.stringByReplacingOccurrencesOfString(".", withString: "")
+            if string == "" {
+                newText = String(newText.characters.dropLast())
+            }
+            text = textUltilities.stringToNumber(newText)
+            textField.text = text
+        }
+        return false
     }
     
     //protocols of Image Picker
@@ -289,11 +304,11 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     
     // get Income from List to edit 
     func getInformationIncome(dailyIncome : DailyIncome!){
-        incomeText.text = "\(dailyIncome.income)"
-        let realIncomeLabel = Double(Int(dailyIncome!.income) * Int(dailyIncome.shops!.percent) / 100)
-        self.realIncomeLabel.text = "\(realIncomeLabel)"
-        cardTipsText.text = "\(dailyIncome.cardTip)"
-        cashTipsText.text = "\(dailyIncome.cashTip)"
+        incomeText.text = textUltilities.stringToNumber(String(dailyIncome.income))
+        let realIncomeLabel = String((Int(dailyIncome!.income) * Int(dailyIncome.shops!.percent) / 100))
+        self.realIncomeLabel.text = textUltilities.stringToNumber(realIncomeLabel)
+        cardTipsText.text = textUltilities.stringToNumber(String(dailyIncome.cardTip))
+        cashTipsText.text = textUltilities.stringToNumber(String(dailyIncome.cashTip))
         let dateString = formatDate(dailyIncome.date)
         dateButton.setTitle("\(dateString)", forState: .Normal)
         if let photo = dailyIncome.photo {
@@ -305,4 +320,5 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         getCurrentShop(dailyIncome.shops)
         flagEdit = true
     }
-}
+    
+    }

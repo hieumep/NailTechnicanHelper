@@ -35,7 +35,7 @@ class UpdateDataViewController : UIViewController{
                 income.cardTip = Int(Int(income.cardTip) * 100)
                 income.cashTip = Int(Int(income.cashTip) * 100)
             }
-      //  saveContext()
+        saveContext()
         }catch {
             print(error)
         }
