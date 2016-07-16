@@ -14,6 +14,16 @@ class TextUtilities : NSObject {
         let number = Int(string)
         let centString = number! % 100
         let dollarString = number! / 100
+        /*
+        switch centString{
+        case 0:
+            text = "\(dollarString)"
+        case 1...9 :
+            text = "\(dollarString).0\(centString)"
+        default :
+            text = "\(dollarString).\(centString)"
+        }
+        */
         if centString < 10 {
             text = "\(dollarString).0\(centString)"
         }else {
@@ -22,6 +32,21 @@ class TextUtilities : NSObject {
         return text
     }
     
+    func stringToNumberNoZero(string : String) -> String {
+        var text : String
+        let number = Int(string)
+        let centString = number! % 100
+        let dollarString = number! / 100
+        switch centString{
+        case 0:
+            text = "\(dollarString)"
+        case 1...9 :
+            text = "\(dollarString).0\(centString)"
+        default :
+            text = "\(dollarString).\(centString)"
+        }
+        return text
+    }
     func stringToInt(text : String) -> Int {
         let newText = text.stringByReplacingOccurrencesOfString(".", withString: "")
         return Int(newText)!

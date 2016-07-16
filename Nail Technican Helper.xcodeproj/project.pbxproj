@@ -10,11 +10,11 @@
 		512664CF1D236EAF00AA0FC6 /* UpdateDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512664CE1D236EAF00AA0FC6 /* UpdateDataViewController.swift */; };
 		512D176E1D2B41E9008048F6 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 512D176D1D2B41E9008048F6 /* GoogleMobileAds.framework */; };
 		512D17701D2B5006008048F6 /* TextUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512D176F1D2B5006008048F6 /* TextUtilities.swift */; };
+		512D17711D3730A4008048F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51AD6D2D1CAE3C1F00FB92B2 /* Main.storyboard */; };
 		512F650F1CD8560800562623 /* PickDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512F650E1CD8560800562623 /* PickDateViewController.swift */; };
 		51AA26271CC87C310075E672 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AA26261CC87C310075E672 /* ImageViewController.swift */; };
 		51AD6D2A1CAE3C1F00FB92B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D291CAE3C1F00FB92B2 /* AppDelegate.swift */; };
 		51AD6D2C1CAE3C1F00FB92B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D2B1CAE3C1F00FB92B2 /* ViewController.swift */; };
-		51AD6D2F1CAE3C1F00FB92B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51AD6D2D1CAE3C1F00FB92B2 /* Main.storyboard */; };
 		51AD6D321CAE3C1F00FB92B2 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D301CAE3C1F00FB92B2 /* Model.xcdatamodeld */; };
 		51AD6D341CAE3C1F00FB92B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51AD6D331CAE3C1F00FB92B2 /* Assets.xcassets */; };
 		51AD6D371CAE3C1F00FB92B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51AD6D351CAE3C1F00FB92B2 /* LaunchScreen.storyboard */; };
@@ -228,7 +228,7 @@
 				51AD6D621CB0DD8F00FB92B2 /* NailShop.storyboard in Resources */,
 				51AD6D371CAE3C1F00FB92B2 /* LaunchScreen.storyboard in Resources */,
 				51AD6D341CAE3C1F00FB92B2 /* Assets.xcassets in Resources */,
-				51AD6D2F1CAE3C1F00FB92B2 /* Main.storyboard in Resources */,
+				512D17711D3730A4008048F6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

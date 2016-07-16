@@ -388,7 +388,6 @@
                         <segue destination="ROd-Cm-SVS" kind="relationship" relationship="viewControllers" id="ygo-9t-KD3"/>
                         <segue destination="odv-5m-IuE" kind="relationship" relationship="viewControllers" id="KQe-RF-yC9"/>
                         <segue destination="HWP-hS-P1N" kind="relationship" relationship="viewControllers" id="dub-DA-1Dv"/>
-                        <segue destination="Q8M-h1-v2l" kind="relationship" relationship="viewControllers" id="hma-FQ-vWu"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hW4-Lo-YeY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -499,85 +498,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0jg-JO-ZkX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="12" y="994"/>
-        </scene>
-        <!--UpdateData-->
-        <scene sceneID="L5x-G1-RVb">
-            <objects>
-                <viewController title="UpdateData" id="Q8M-h1-v2l" customClass="UpdateDataViewController" customModule="Nail_Technican_Helper" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="8XO-8x-pBs"/>
-                        <viewControllerLayoutGuide type="bottom" id="akR-ds-s4F"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="aPR-jx-wSF">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlC-vC-2p1">
-                                <rect key="frame" x="20" y="60" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0r-j7-ROa">
-                                <rect key="frame" x="10" y="114" width="51" height="30"/>
-                                <state key="normal" title="Income"/>
-                                <connections>
-                                    <action selector="incomeButton:" destination="Q8M-h1-v2l" eventType="touchUpInside" id="gC6-7f-MaL"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5U-Ct-qEo">
-                                <rect key="frame" x="122" y="60" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WOP-1A-lX4">
-                                <rect key="frame" x="110" y="114" width="67" height="30"/>
-                                <state key="normal" title="Card Tips"/>
-                                <connections>
-                                    <action selector="cardTipsButton:" destination="Q8M-h1-v2l" eventType="touchUpInside" id="Cos-2z-ClJ"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QH-In-2e1">
-                                <rect key="frame" x="224" y="60" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGX-T5-ECh">
-                                <rect key="frame" x="211" y="114" width="69" height="30"/>
-                                <state key="normal" title="Cash Tips"/>
-                                <connections>
-                                    <action selector="cashTipsButton:" destination="Q8M-h1-v2l" eventType="touchUpInside" id="Qo1-7q-MkE"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="0QH-In-2e1" firstAttribute="leading" secondItem="J5U-Ct-qEo" secondAttribute="trailing" constant="60" id="0Eh-DH-7im"/>
-                            <constraint firstItem="R0r-j7-ROa" firstAttribute="leading" secondItem="aPR-jx-wSF" secondAttribute="leading" constant="10" id="0PQ-Pe-4IV"/>
-                            <constraint firstItem="J5U-Ct-qEo" firstAttribute="leading" secondItem="tlC-vC-2p1" secondAttribute="trailing" constant="60" id="0Zp-F5-Dwa"/>
-                            <constraint firstItem="0QH-In-2e1" firstAttribute="top" secondItem="8XO-8x-pBs" secondAttribute="bottom" constant="40" id="DPe-08-VdX"/>
-                            <constraint firstItem="tlC-vC-2p1" firstAttribute="leading" secondItem="aPR-jx-wSF" secondAttribute="leading" constant="20" id="ENE-dp-bgr"/>
-                            <constraint firstItem="WOP-1A-lX4" firstAttribute="leading" secondItem="R0r-j7-ROa" secondAttribute="trailing" constant="49" id="JuD-nl-JTc"/>
-                            <constraint firstItem="R0r-j7-ROa" firstAttribute="top" secondItem="tlC-vC-2p1" secondAttribute="bottom" constant="33" id="fRM-5r-2iL"/>
-                            <constraint firstItem="tGX-T5-ECh" firstAttribute="top" secondItem="0QH-In-2e1" secondAttribute="bottom" constant="33" id="iCN-k2-fz8"/>
-                            <constraint firstItem="WOP-1A-lX4" firstAttribute="top" secondItem="J5U-Ct-qEo" secondAttribute="bottom" constant="33" id="ii2-Iw-Xp1"/>
-                            <constraint firstItem="tGX-T5-ECh" firstAttribute="leading" secondItem="WOP-1A-lX4" secondAttribute="trailing" constant="34" id="mJj-la-ea9"/>
-                            <constraint firstItem="J5U-Ct-qEo" firstAttribute="top" secondItem="8XO-8x-pBs" secondAttribute="bottom" constant="40" id="tsb-tW-Iq4"/>
-                            <constraint firstItem="tlC-vC-2p1" firstAttribute="top" secondItem="8XO-8x-pBs" secondAttribute="bottom" constant="40" id="uGi-eK-lum"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="drZ-Wm-PjI"/>
-                    <connections>
-                        <outlet property="cardTipsLabel" destination="J5U-Ct-qEo" id="C8v-E6-ees"/>
-                        <outlet property="cashTipsLabel" destination="0QH-In-2e1" id="Vub-Gq-nKF"/>
-                        <outlet property="incomeLabel" destination="tlC-vC-2p1" id="9b1-Lm-Ih1"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="m2p-uW-dn4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="189" y="435"/>
         </scene>
         <!--List-->
         <scene sceneID="SPi-tF-ZHA">

@@ -138,10 +138,10 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     }
     
     func showSum(){
-        sumIncomeLabel.text = textUltilities.stringToNumber(String(sumIncome))
-        sumRealIncomeLabel.text = textUltilities.stringToNumber(String(sumRealIncome))
-        sumCardTipLabel.text = textUltilities.stringToNumber(String(sumCardTip))
-        sumCashTipLabel.text = textUltilities.stringToNumber(String(sumCashTip))
+        sumIncomeLabel.text = textUltilities.stringToNumberNoZero(String(sumIncome))
+        sumRealIncomeLabel.text = textUltilities.stringToNumberNoZero(String(sumRealIncome))
+        sumCardTipLabel.text = textUltilities.stringToNumberNoZero(String(sumCardTip))
+        sumCashTipLabel.text = textUltilities.stringToNumberNoZero(String(sumCashTip))
     }
     
     lazy var sharedContext : NSManagedObjectContext = {
@@ -171,10 +171,10 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEE, dd MMM yyyy"
         cell.dateLabel.text = dateFormatter.stringFromDate(income.date)
-        cell.incomeLabel.text = textUltilities.stringToNumber(String(income.income))
-        cell.realIncomeLabel.text = textUltilities.stringToNumber(String(realIncome))
-        cell.cardTipsLabel.text = textUltilities.stringToNumber(String(income.cardTip))
-        cell.cashTipsLabel.text = textUltilities.stringToNumber(String(income.cashTip))
+        cell.incomeLabel.text = textUltilities.stringToNumberNoZero(String(income.income))
+        cell.realIncomeLabel.text = textUltilities.stringToNumberNoZero(String(realIncome))
+        cell.cardTipsLabel.text = textUltilities.stringToNumberNoZero(String(income.cardTip))
+        cell.cashTipsLabel.text = textUltilities.stringToNumberNoZero(String(income.cashTip))
         return cell
     }
     
