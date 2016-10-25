@@ -15,20 +15,20 @@ class EachCustomerIncome : NSManagedObject{
         static let cardTip = "card_tip"
         static let cashTip = "cash_tip"
     }
-    @NSManaged var date : NSDate
+    @NSManaged var date : Foundation.Date
     @NSManaged var income : Int
     @NSManaged var cardTip : Int
     @NSManaged var cashTip : Int
     @NSManaged var shop : NailShop?
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
     }
     
     init(eachCustomerIncomeDict : [String : AnyObject], context : NSManagedObjectContext){
-        let entity = NSEntityDescription.entityForName("EachCustomerIncome", inManagedObjectContext: context)!
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
-        date = eachCustomerIncomeDict[keys.date] as! NSDate
+        let entity = NSEntityDescription.entity(forEntityName: "EachCustomerIncome", in: context)!
+        super.init(entity: entity, insertInto: context)
+        date = eachCustomerIncomeDict[keys.date] as! Foundation.Date
         income = eachCustomerIncomeDict[keys.income] as! Int
         cardTip = eachCustomerIncomeDict[keys.cardTip] as! Int
         cashTip = eachCustomerIncomeDict[keys.cashTip] as! Int

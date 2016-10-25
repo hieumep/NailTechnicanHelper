@@ -9,9 +9,31 @@
 import Foundation
 import UIKit
 import CoreData
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
+
+@available(iOS 10.0, *)
 class NailShopTableViewController : UITableViewController, NSFetchedResultsControllerDelegate {
     var selectedRow : Int? = nil
+    let fetchRequest: NSFetchRequest<NailShop> = NailShop.fetchRequest() as! NSFetchRequest<NailShop>
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +45,9 @@ class NailShopTableViewController : UITableViewController, NSFetchedResultsContr
         fetchedResultController.delegate = self
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.separatorColor = UIColor.brownColor()
+        tableView.separatorColor = UIColor.brown
         tableView.reloadData()
     }
     
@@ -33,64 +55,64 @@ class NailShopTableViewController : UITableViewController, NSFetchedResultsContr
        return CoreDataStackManager.sharedInstance().managerObjectContext
     }()
     
-    lazy var fetchedResultController : NSFetchedResultsController = {
-        let requestFetched = NSFetchRequest(entityName: "NailShop")
-        requestFetched.sortDescriptors = [NSSortDescriptor(key: "nailShop", ascending: true)]
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: requestFetched, managedObjectContext: self.shareContext, sectionNameKeyPath: nil, cacheName: nil)
+    lazy var fetchedResultController : NSFetchedResultsController<NailShop> = {
+        let fetchRequest: NSFetchRequest<NailShop> = NailShop.fetchRequest() as! NSFetchRequest<NailShop>
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "nailShop", ascending: true)]
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.shareContext, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultsController
     }()
     
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.beginUpdates()
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.endUpdates()
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch  type {
-        case .Insert:
-            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-        case .Delete:
-            self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        case .insert:
+            self.tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            self.tableView.deleteRows(at: [indexPath!], with: .fade)
         default :
             return
         }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sessionInfo = self.fetchedResultController.sections![section]
         return sessionInfo.numberOfObjects
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let shop = self.fetchedResultController.objectAtIndexPath(indexPath) as! NailShop
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let shop = self.fetchedResultController.object(at: indexPath)
         let cellIdentifier = "nailShopCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! NailShopCellControler
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! NailShopCellControler
         cell.nailShopLabel.text = shop.nailShop
         cell.percentLabel.text = "\(shop.percent)"
         cell.phoneNumberLabel.text = shop.phoneNumber
         
         if shop.selected {
-            cell.selectButton.hidden = true
-            cell.selectedLabel.hidden = false
-            self.selectedRow = indexPath.row
+            cell.selectButton.isHidden = true
+            cell.selectedLabel.isHidden = false
+            self.selectedRow = (indexPath as NSIndexPath).row
         } else {
-            cell.selectedLabel.hidden = true
-            cell.selectButton.hidden = false
-            cell.selectButton.tag = indexPath.row
-            cell.selectButton.addTarget(self, action: #selector(NailShopTableViewController.selectShop), forControlEvents: .TouchUpInside)
+            cell.selectedLabel.isHidden = true
+            cell.selectButton.isHidden = false
+            cell.selectButton.tag = (indexPath as NSIndexPath).row
+            cell.selectButton.addTarget(self, action: #selector(NailShopTableViewController.selectShop), for: .touchUpInside)
         }
         return cell
     }
     
-    @IBAction func selectShop(sender : UIButton){
+    @IBAction func selectShop(_ sender : UIButton){
         let selectRow = sender.tag
-        let fetchRequest = NSFetchRequest(entityName: "NailShop")
+       // let fetchRequest = NSFetchRequest(entityName: "NailShop")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "nailShop", ascending: true)]
         do {
-            let results = try self.shareContext.executeFetchRequest(fetchRequest) as! [NailShop]
+            let results = try self.shareContext.fetch(fetchRequest)
             results[selectRow].selected = true
             if let _ = selectedRow {
                 results[selectedRow!].selected = false
@@ -102,18 +124,18 @@ class NailShopTableViewController : UITableViewController, NSFetchedResultsContr
         }
         
     }
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        let shop = self.fetchedResultController.objectAtIndexPath(indexPath) as! NailShop
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let shop = self.fetchedResultController.object(at: indexPath)
         switch (editingStyle) {
-        case .Delete :
+        case .delete :
             if shop.dailyIncomes?.count <= 0 && shop.eachCustomerIncomes?.count <= 0 {
-                shareContext.deleteObject(shop)
+                shareContext.delete(shop)
                 CoreDataStackManager.sharedInstance().saveContext()
             }else{
-                let alert = UIAlertController(title: "Error", message: "It have data, you can delete it", preferredStyle: .Alert)
-                let cancelButton = UIAlertAction(title: "Okie", style: .Cancel, handler: nil)
+                let alert = UIAlertController(title: "Error", message: "It have data, you can delete it", preferredStyle: .alert)
+                let cancelButton = UIAlertAction(title: "Okie", style: .cancel, handler: nil)
                 alert.addAction(cancelButton)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
             }
         default:
             return
@@ -121,17 +143,17 @@ class NailShopTableViewController : UITableViewController, NSFetchedResultsContr
         
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let shop = self.fetchedResultController.objectAtIndexPath(indexPath) as! NailShop
-        let nailShopViewController = self.storyboard!.instantiateViewControllerWithIdentifier("NailShopViewController")as! NailShopViewController
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let shop = self.fetchedResultController.object(at: indexPath)
+        let nailShopViewController = self.storyboard!.instantiateViewController(withIdentifier: "NailShopViewController")as! NailShopViewController
         nailShopViewController.shop = shop
         nailShopViewController.indexPath = indexPath
         self.navigationController?.pushViewController(nailShopViewController, animated: true)        
     }
     
     
-    @IBAction func backAction(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func backAction(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
 }

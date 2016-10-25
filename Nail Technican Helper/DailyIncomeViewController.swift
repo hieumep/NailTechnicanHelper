@@ -9,7 +9,28 @@
 import UIKit
 import CoreData
 import QuartzCore
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
+
+@available(iOS 10.0, *)
 class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     @IBOutlet weak var pickShopLabel: UILabel!
@@ -30,16 +51,16 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     var flagDate  = true
     var tapRecognizer : UITapGestureRecognizer? = nil
     var textFieldDelegate = TextFieldDelegate()
-    var date = NSDate()
+    var date = Date()
     var shop :NailShop?
     var image : UIImage?
     var dailyIncome : DailyIncome?
-    var fetchRequest : NSFetchRequest?
-    var indexPath : NSIndexPath?
+    var fetchRequest: NSFetchRequest<DailyIncome> = DailyIncome.fetchRequest() as! NSFetchRequest<DailyIncome>
+    var indexPath : IndexPath?
     var flagEdit = false
     var textUltilities = TextUtilities()
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         appDelegate.iAdBannerAdView.center = CGPoint(
             x: view.frame.midX,
@@ -55,23 +76,23 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         incomeText.delegate = self
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         addKeyboardDismissRecognizer()
         
     }
     
     func setDate(){
-        let dateString = formatDate(NSDate())
-        dateButton.setTitle("\(dateString)", forState: .Normal)
+        let dateString = formatDate(Foundation.Date())
+        dateButton.setTitle("\(dateString)", for: UIControlState())
         print(dateString)
-        date = NSDate()
+        date = Foundation.Date()
         datePicker.date = date
     }
     
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         removeKeyboardDismissRecognizer()
      //   NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -79,7 +100,7 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(setDate), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setDate), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         self.canDisplayBannerAds = true
         cardTipsText.delegate = textFieldDelegate
         cashTipsText.delegate = textFieldDelegate
@@ -92,12 +113,12 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         //set tao action to hide keyboard
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSingeTap))
         tapRecognizer!.numberOfTapsRequired = 1
-        let tomorrow = Date(date: NSDate(), addDay: 1)
+        let tomorrow = DateConvenient(date: Date(), addDay: 1)
         datePicker.maximumDate = tomorrow.getEndDate()
         
         //set tap action for Image View
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(DailyIncomeViewController.imageTapped(_:)))
-        imageView.userInteractionEnabled = true
+        imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGestureRecognizer)
         
         //set layer for ImageView
@@ -108,13 +129,13 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     }
     
     // segue to Image View Controller when tap image
-    func imageTapped(image : AnyObject){
-        let imageVC = storyboard?.instantiateViewControllerWithIdentifier("imageViewController") as! ImageViewController
+    func imageTapped(_ image : AnyObject){
+        let imageVC = storyboard?.instantiateViewController(withIdentifier: "imageViewController") as! ImageViewController
         imageVC.image = imageView.image
-        self.presentViewController(imageVC, animated: true, completion: nil)
+        self.present(imageVC, animated: true, completion: nil)
     }
     
-    func handleSingeTap(recognizer : UITapGestureRecognizer){
+    func handleSingeTap(_ recognizer : UITapGestureRecognizer){
         self.view.endEditing(true)
     }
     
@@ -126,49 +147,49 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         self.view.removeGestureRecognizer(tapRecognizer!)
     }
     
-    @IBAction func dateFromDatePicker(sender: AnyObject) {
+    @IBAction func dateFromDatePicker(_ sender: AnyObject) {
         let date = formatDate(datePicker.date)
         self.date = datePicker.date
-        dateButton.setTitle("\(date)", forState: .Normal)
+        dateButton.setTitle("\(date)", for: UIControlState())
     }
     
-    @IBAction func pickDate(sender: AnyObject) {
+    @IBAction func pickDate(_ sender: AnyObject) {
         flagDate = !flagDate
-        datePicker.hidden = flagDate
-        dateLabel.hidden = !flagDate
+        datePicker.isHidden = flagDate
+        dateLabel.isHidden = !flagDate
     }
     
     // format date to String
-    func formatDate(date: NSDate) -> String {
-        let dateFormater = NSDateFormatter()
-        dateFormater.locale = NSLocale.currentLocale()
-        dateFormater.dateStyle = .FullStyle
-        let dateString = dateFormater.stringFromDate(date)
+    func formatDate(_ date: Foundation.Date) -> String {
+        let dateFormater = DateFormatter()
+        dateFormater.locale = Locale.current
+        dateFormater.dateStyle = .full
+        let dateString = dateFormater.string(from: date)
         return dateString
     }
     
-    @IBAction func pickImageFromCamera(sender: AnyObject) {
+    @IBAction func pickImageFromCamera(_ sender: AnyObject) {
         let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         imagePicker.delegate = self
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func pickImageFromGallery(sender: AnyObject) {
+    @IBAction func pickImageFromGallery(_ sender: AnyObject) {
         let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         imagePicker.delegate = self
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
     }
    
-    @IBAction func saveIncome(sender: AnyObject) {
+    @IBAction func saveIncome(_ sender: AnyObject) {
         if !flagEdit {
         let incomeDict : [String : AnyObject] = [
-            DailyIncome.keys.date : date,
-            DailyIncome.keys.income : textUltilities.stringToInt(incomeText.text!),
-            DailyIncome.keys.cardTip : textUltilities.stringToInt(cardTipsText.text!),
-            DailyIncome.keys.cashTip : textUltilities.stringToInt(cashTipsText.text!),
-            DailyIncome.keys.photo : ImageCache.sharedIntanse().getImage(self.imageView.image, date: self.date) ?? ""
+            DailyIncome.keys.date : date as AnyObject,
+            DailyIncome.keys.income : textUltilities.stringToInt(incomeText.text!) as AnyObject,
+            DailyIncome.keys.cardTip : textUltilities.stringToInt(cardTipsText.text!) as AnyObject,
+            DailyIncome.keys.cashTip : textUltilities.stringToInt(cashTipsText.text!) as AnyObject,
+            DailyIncome.keys.photo : ImageCache.sharedIntanse().getImage(self.imageView.image, date: self.date) as AnyObject? ?? "" as AnyObject
         ]
         let income = DailyIncome(dailyIncomeDict: incomeDict, context: sharedContext)
         income.shops = self.shop
@@ -177,16 +198,16 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
         saveContext()
         }else{
             do {
-                var incomes = try sharedContext.executeFetchRequest(self.fetchRequest!) as? [DailyIncome]
-                if incomes?.count >= 1 {
-                    let income = incomes?[indexPath!.row]
-                    income?.date = date
-                    income?.income = textUltilities.stringToInt(incomeText.text!)
-                    income?.cardTip = textUltilities.stringToInt(cardTipsText.text!)
-                    income?.cashTip = textUltilities.stringToInt(cashTipsText.text!)
-                    income?.photo = ImageCache.sharedIntanse().getImage(self.imageView.image, date: self.date) ?? ""
+                var incomes = try sharedContext.fetch(self.fetchRequest)
+                if incomes.count >= 1 {
+                    let income = incomes[(indexPath! as NSIndexPath).row]
+                    income.date = date as NSDate
+                    income.income = textUltilities.stringToInt(incomeText.text!) as NSNumber
+                    income.cardTip = textUltilities.stringToInt(cardTipsText.text!) as NSNumber
+                    income.cashTip = textUltilities.stringToInt(cashTipsText.text!) as NSNumber
+                    income.photo = ImageCache.sharedIntanse().getImage(self.imageView.image, date: self.date) ?? ""
                     saveContext()
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 }
             }catch{
                 print(error)
@@ -195,11 +216,11 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     }
     
     
-    @IBAction func cancel(sender: AnyObject) {
+    @IBAction func cancel(_ sender: AnyObject) {
         if !flagEdit {
             resetField()
         }else {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -213,28 +234,28 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     }
     
     // Get information about current Shop with selected == true
-    func getCurrentShop (nailShop : NailShop?){
+    func getCurrentShop (_ nailShop : NailShop?){
         if let nailShop = nailShop{
             shopLabel.text = nailShop.nailShop
             percentLabel.text = "\(nailShop.percent)"
             shop = nailShop
-            mainView.hidden = false
-            pickShopLabel.hidden = true
+            mainView.isHidden = false
+            pickShopLabel.isHidden = true
 
         }else {
-            let fetchRequest = NSFetchRequest(entityName: "NailShop")
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "NailShop")
             fetchRequest.predicate = NSPredicate(format: "selected==true")
             do {
-               let shops = try sharedContext.executeFetchRequest(fetchRequest) as? [NailShop]
+               let shops = try sharedContext.fetch(fetchRequest) as? [NailShop]
                 if shops?.count >= 1  {
                     shopLabel.text = shops![0].nailShop
                     percentLabel.text = "\(shops![0].percent)"
                     shop = shops![0]
-                    mainView.hidden = false
-                    pickShopLabel.hidden = true
+                    mainView.isHidden = false
+                    pickShopLabel.isHidden = true
                 }else {
-                    mainView.hidden = true
-                    pickShopLabel.hidden = false
+                    mainView.isHidden = true
+                    pickShopLabel.isHidden = false
                     }
             }catch{
                 print(error)
@@ -244,7 +265,7 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     }
     
     // remove photo from imageView
-    @IBAction func deletePhoto(sender: AnyObject) {
+    @IBAction func deletePhoto(_ sender: AnyObject) {
         imageView.image = nil
     }
     
@@ -257,7 +278,7 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     }
     
     // protocols of textfied
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if !textField.text!.isEmpty {
             let percent = shop?.percent as! Int
             let realIncomeLabel = textUltilities.stringToInt(textField.text!) * percent / 100
@@ -270,16 +291,16 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     
        
     // protocols of textfied
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text!.isEmpty || textField.text == "0" {
             textField.text = ""
         }
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var text : String = textField.text! + string
         if text.characters.count < 12 {
-            var newText = text.stringByReplacingOccurrencesOfString(".", withString: "")
+            var newText = text.replacingOccurrences(of: ".", with: "")
             if string == "" {
                 newText = String(newText.characters.dropLast())
             }
@@ -290,33 +311,33 @@ class DailyIncomeViewController : UIViewController,UITextFieldDelegate, UIImageP
     }
     
     //protocols of Image Picker
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
     // protoclos of Image Picke
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        imageView.contentMode = .ScaleToFill
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        imageView.contentMode = .scaleToFill
         imageView.image = image
         self.image = image
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     // get Income from List to edit 
-    func getInformationIncome(dailyIncome : DailyIncome!){
-        incomeText.text = textUltilities.stringToNumber(String(dailyIncome.income))
+    func getInformationIncome(_ dailyIncome : DailyIncome!){
+        incomeText.text = textUltilities.stringToNumber(String(describing: dailyIncome.income))
         let realIncomeLabel = String((Int(dailyIncome!.income) * Int(dailyIncome.shops!.percent) / 100))
         self.realIncomeLabel.text = textUltilities.stringToNumber(realIncomeLabel)
-        cardTipsText.text = textUltilities.stringToNumber(String(dailyIncome.cardTip))
-        cashTipsText.text = textUltilities.stringToNumber(String(dailyIncome.cashTip))
-        let dateString = formatDate(dailyIncome.date)
-        dateButton.setTitle("\(dateString)", forState: .Normal)
+        cardTipsText.text = textUltilities.stringToNumber(String(describing: dailyIncome.cardTip))
+        cashTipsText.text = textUltilities.stringToNumber(String(describing: dailyIncome.cashTip))
+        let dateString = formatDate((dailyIncome.date as NSDate) as Date)
+        dateButton.setTitle("\(dateString)", for: UIControlState())
         if let photo = dailyIncome.photo {
             imageView.image = ImageCache.sharedIntanse().imageWithIdentifier(photo)
             print(photo)
         }
         self.title = "Edit"
-        self.saveButton.setTitle("Edit", forState: .Normal)
+        self.saveButton.setTitle("Edit", for: UIControlState())
         getCurrentShop(dailyIncome.shops)
         flagEdit = true
     }

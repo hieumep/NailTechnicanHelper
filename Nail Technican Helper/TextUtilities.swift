@@ -9,7 +9,7 @@
 import Foundation
 
 class TextUtilities : NSObject {
-    func stringToNumber(string : String) -> String {
+    func stringToNumber(_ string : String) -> String {
         var text : String
         let number = Int(string)
         let centString = number! % 100
@@ -32,7 +32,7 @@ class TextUtilities : NSObject {
         return text
     }
     
-    func stringToNumberNoZero(string : String) -> String {
+    func stringToNumberNoZero(_ string : String) -> String {
         var text : String
         let number = Int(string)
         let centString = number! % 100
@@ -47,8 +47,9 @@ class TextUtilities : NSObject {
         }
         return text
     }
-    func stringToInt(text : String) -> Int {
-        let newText = text.stringByReplacingOccurrencesOfString(".", withString: "")
+    
+    func stringToInt(_ text : String) -> Int {
+        let newText = text.replacingOccurrences(of: ".", with: "")
         return Int(newText)!
     }
 }

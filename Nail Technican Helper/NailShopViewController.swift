@@ -16,7 +16,8 @@ class NailShopViewController : UIViewController {
     @IBOutlet weak var actionButton: UIButton!
     
     @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var addressTextView: UITextView!
+  
+    @IBOutlet weak var addressTextView: UITextField!
     
     @IBOutlet weak var commissionTextField: UITextField!
     
@@ -28,11 +29,11 @@ class NailShopViewController : UIViewController {
     let textFieldDelegate = TextFieldDelegate()
     
     var shop : NailShop?
-    var indexPath : NSIndexPath?
+    var indexPath : IndexPath?
     
-    @IBAction func cancelButton(sender: AnyObject) {
+    @IBAction func cancelButton(_ sender: AnyObject) {
         if let _ = shop {
-            self.navigationController?.popToRootViewControllerAnimated(true)
+            _ = navigationController?.popToRootViewController(animated: true)
         }else {
             commissionTextField.text = ""
             nailShopTextField.text = ""
@@ -44,41 +45,41 @@ class NailShopViewController : UIViewController {
     override func viewDidLoad() {
         addressTextView.layer.borderWidth = 0.5        
         addressTextView.layer.cornerRadius = 8.0
-        commissionTextField.delegate = textFieldDelegate
-        nailShopTextField.delegate = textFieldDelegate
-        phoneNumberTextField.delegate = textFieldDelegate
+       // commissionTextField.delegate = textFieldDelegate
+      //  nailShopTextField.delegate = textFieldDelegate
+      //  phoneNumberTextField.delegate = textFieldDelegate
         if let shopInfo = shop {
             getShopEditInfo(shopInfo)
         }
         
     }
     
-    @IBAction func SaveShop(sender: AnyObject) {
+    @IBAction func SaveShop(_ sender: AnyObject) {
         if actionButton.titleLabel?.text == "Save" {
             if getShopDict() {
                 let shop : [String:AnyObject] = [
-                    NailShop.keys.percent : commissionTextField.text!,
-                    NailShop.keys.nailShop : nailShopTextField.text!,
-                    NailShop.keys.phoneNumber : phoneNumberTextField.text! ?? "",
-                    NailShop.keys.address : addressTextView.text! ?? ""
+                    NailShop.keys.percent : NSNumber(value: Int(commissionTextField.text!)!),
+                    NailShop.keys.nailShop : nailShopTextField.text! as AnyObject,
+                    NailShop.keys.phoneNumber : phoneNumberTextField.text! as AnyObject? ?? "" as String as AnyObject,
+                    NailShop.keys.address : addressTextView.text! as AnyObject? ?? "" as AnyObject
                 ]
                 let _ = NailShop(nailShops: shop, context: self.sharedContext)
                 saveContext()
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                _ = navigationController?.popToRootViewController(animated: true)
             }
         }else{
-            let fetchRequest = NSFetchRequest(entityName: "NailShop")
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "NailShop")
             fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "nailShop", ascending: true)]
             do {
-                var fetchResults = try sharedContext.executeFetchRequest(fetchRequest) as! [NailShop]
-                let shop = fetchResults[indexPath!.row]
+                var fetchResults = try sharedContext.fetch(fetchRequest) as! [NailShop]
+                let shop = fetchResults[(indexPath! as NSIndexPath).row]
                 if getShopDict(){
-                    shop.percent = Int(commissionTextField.text!)!
+                    shop.percent = NSNumber(value: Int(commissionTextField.text!)!)
                     shop.nailShop = nailShopTextField.text!
-                    shop.phoneNumber = phoneNumberTextField.text! ?? ""
-                    shop.address = addressTextView.text! ?? ""
+                    shop.phoneNumber = phoneNumberTextField.text!
+                    shop.address = addressTextView.text!
                     saveContext()
-                    self.navigationController?.popViewControllerAnimated(true)
+                    _ = navigationController?.popViewController(animated: true)
                 }
                 
             }catch{
@@ -96,12 +97,12 @@ class NailShopViewController : UIViewController {
         CoreDataStackManager.sharedInstance().saveContext()
     }
     
-    func getShopEditInfo(shopInfo : NailShop!) {
+    func getShopEditInfo(_ shopInfo : NailShop!) {
         nailShopTextField.text  = shopInfo.nailShop
         commissionTextField.text = "\(shopInfo.percent)"
         phoneNumberTextField.text = shopInfo.phoneNumber
         addressTextView.text = shopInfo.address
-        actionButton.setTitle("Edit", forState: .Normal)
+        actionButton.setTitle("Edit", for: UIControlState())
         self.title = "Edit Nail Shop"
         
     }
@@ -111,10 +112,10 @@ class NailShopViewController : UIViewController {
             return true
         }else {
          //   let alert = UIAlertView(title: "Error", message: "Commission and Nail Shop can be empty", delegate: nil, cancelButtonTitle: "okie")
-            let alert = UIAlertController(title: "Error", message: "Commission and Nail Shop can be empty", preferredStyle: .Alert)
-            let cancelButton = UIAlertAction(title: "Okie", style: .Cancel, handler: nil)
+            let alert = UIAlertController(title: "Error", message: "Commission and Nail Shop can be empty", preferredStyle: .alert)
+            let cancelButton = UIAlertAction(title: "Okie", style: .cancel, handler: nil)
             alert.addAction(cancelButton)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
             return false
         }
     }

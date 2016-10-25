@@ -1,0 +1,6 @@
+framework module Pods_Nail_Technican_Helper {
+  umbrella header "Pods-Nail Technican Helper-umbrella.h"
+
+  export *
+  module * { export * }
+}

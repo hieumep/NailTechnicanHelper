@@ -8,24 +8,24 @@
 
 import Foundation
 
-struct Date{
-    var compoments : NSDateComponents
-    let calendar = NSCalendar.currentCalendar()
-    let dateFormatter = NSDateFormatter()
-    var currentDate : NSDate? = nil
+struct DateConvenient{
+    var compoments : DateComponents
+    let calendar = Calendar.current
+    let dateFormatter = DateFormatter()
+    var currentDate : Date? = nil
     
-    init(date:NSDate){
-        compoments = calendar.components([.Year,.Month,.Day], fromDate: date)
-        currentDate = calendar.dateFromComponents(compoments)
+    init(date: Date){
+        compoments = (calendar as NSCalendar).components([.year,.month,.day], from: date)
+        currentDate = calendar.date(from: compoments)
     }
     
-    init(date:NSDate, addDay : Int){
-        let newDate = calendar.dateByAddingUnit(.Day, value: addDay, toDate: date, options:NSCalendarOptions.init(rawValue: 0))
-        compoments = calendar.components([.Year,.Month,.Day,], fromDate: newDate!)
-        currentDate = calendar.dateFromComponents(compoments)
+    init(date: Date, addDay : Int){
+        let newDate = (calendar as NSCalendar).date(byAdding: .day, value: addDay, to: date, options:NSCalendar.Options.init(rawValue: 0))
+        compoments = (calendar as NSCalendar).components([.year,.month,.day,], from: newDate!)
+        currentDate = calendar.date(from: compoments)
     }
     
-    func getStartDate() -> NSDate{
+    mutating func getStartDate() -> Foundation.Date{
         compoments.hour = 0
         compoments.minute = 0
         compoments.second = 0
@@ -33,27 +33,27 @@ struct Date{
         return currentDate!
     }
     
-    func getEndDate() -> NSDate{
-        let components = NSDateComponents()
+    func getEndDate() -> Date{
+        var components = DateComponents()
         components.day = 1
-        var endDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: currentDate!, options: [])!
-        endDate = endDate.dateByAddingTimeInterval(-1)
+        var endDate = (Calendar.current as NSCalendar).date(byAdding: components, to: currentDate!, options: [])!
+        endDate = endDate.addingTimeInterval(-1)
         return endDate
     }
     
-    func getStartDateString() -> String{
-        dateFormatter.dateStyle = .MediumStyle
+    mutating func getStartDateString() -> String{
+        dateFormatter.dateStyle = .medium
         compoments.hour = 0
         compoments.minute = 0
-        let date = calendar.dateFromComponents(compoments)
-        return dateFormatter.stringFromDate(date!)
+        let date = calendar.date(from: compoments)
+        return dateFormatter.string(from: date!)
     }
     
-    func getEndDateString() -> String {
+    mutating func getEndDateString() -> String {
         compoments.hour = 23
         compoments.minute = 59
-        let date = calendar.dateFromComponents(compoments)
-        dateFormatter.dateStyle = .MediumStyle
-        return dateFormatter.stringFromDate(date!)
+        let date = calendar.date(from: compoments)
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: date!)
     }
 }

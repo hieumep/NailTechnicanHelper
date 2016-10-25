@@ -14,14 +14,14 @@ class ImageViewController : UIViewController{
     
     @IBOutlet weak var imageView: UIImageView!
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     
     override func viewDidLoad() {
         imageView.image = image
     }
-    @IBAction func backAction(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func backAction(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

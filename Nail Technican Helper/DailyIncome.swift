@@ -8,6 +8,7 @@
 
 import CoreData
 import UIKit
+import Foundation
 
 class DailyIncome : NSManagedObject {
     struct keys {
@@ -25,17 +26,17 @@ class DailyIncome : NSManagedObject {
     @NSManaged var photo : String?
     @NSManaged var shops : NailShop?
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
     }
     
     init(dailyIncomeDict : [String : AnyObject], context : NSManagedObjectContext){
-        let entity = NSEntityDescription.entityForName("DailyIncome", inManagedObjectContext: context)!
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+        let entity = NSEntityDescription.entity(forEntityName: "DailyIncome", in: context)!
+        super.init(entity: entity, insertInto: context)
         date = dailyIncomeDict[keys.date] as! NSDate
-        income = dailyIncomeDict[keys.income] as! Int
-        cardTip = dailyIncomeDict[keys.cardTip] as! Int
-        cashTip = dailyIncomeDict[keys.cashTip] as! Int
+        income = dailyIncomeDict[keys.income] as! NSNumber
+        cardTip = dailyIncomeDict[keys.cardTip] as! NSNumber
+        cashTip = dailyIncomeDict[keys.cashTip] as! NSNumber       
         photo = dailyIncomeDict[keys.photo] as? String
     }
 }

@@ -15,10 +15,10 @@ class PickDateViewController : UIViewController, GADInterstitialDelegate{
     @IBOutlet weak var fromDatePicker: UIDatePicker!
     
     @IBOutlet weak var toDatePicker: UIDatePicker!
-    var pickFromDate : NSDate? = nil
-    var pickToDate : NSDate? = nil
-    
-    override func viewWillAppear(animated: Bool) {
+    var pickFromDate : Date? = nil
+    var pickToDate : Date? = nil
+
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         pickFromDate = fromDatePicker.date
         pickToDate = toDatePicker.date
@@ -28,49 +28,58 @@ class PickDateViewController : UIViewController, GADInterstitialDelegate{
         loadInterstitial()
     }
     
-    @IBAction func fromDatePick(sender: AnyObject) {
+    @IBAction func fromDatePick(_ sender: AnyObject) {
         pickFromDate = fromDatePicker.date
         
     }
     
-    @IBAction func toDatePick(sender: AnyObject) {
+    @IBAction func toDatePick(_ sender: AnyObject) {
         pickToDate = toDatePicker.date
     }
     
-    @IBAction func submit(sender: AnyObject) {
+    @IBAction func submit(_ sender: AnyObject) {
         if interstitial.isReady {
-            interstitial.presentFromRootViewController(self)
+            interstitial.present(fromRootViewController: self)
         }else{
-            self.performSegueWithIdentifier("showListSegue", sender: self)
+            self.performSegue(withIdentifier: "showListSegue", sender: self)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == "showListSegue" {
-            let ListDailyIncomeVC = segue.destinationViewController as! ListDailyIncomeViewController
+            if #available(iOS 10.0, *) {
+                let ListDailyIncomeVC = segue.destination as! ListDailyIncomeViewController
+                ListDailyIncomeVC.pickFromDate = pickFromDate
+                ListDailyIncomeVC.pickToDate = pickToDate
+            } else {
+                // Fallback on earlier versions
+            }
+            /*
             ListDailyIncomeVC.pickFromDate = pickFromDate
             ListDailyIncomeVC.pickToDate = pickToDate
+ */
         }
     }
     
     func loadInterstitial() {
         interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/2934735716")
         interstitial.delegate = self
-        
+        let request = GADRequest()
         // Request test ads on devices you specify. Your test device ID is printed to the console when
-        // an ad request is made. GADInterstitial automatically returns test ads when running on a
-        // simulator.
-        interstitial.loadRequest(GADRequest())
+        // an ad request is made.
+        request.testDevices = [ kGADSimulatorID, "2077ef9a63d2b398840261c8221a0c9a" ]
+        interstitial.load(request)
+
     }
     // MARK: - GADInterstitialDelegate
     
-    func interstitialDidFailToReceiveAdWithError(interstitial: GADInterstitial,
+    func interstitialDidFailToReceiveAdWithError(_ interstitial: GADInterstitial,
                                                  error: GADRequestError) {
         print("\(#function): \(error.localizedDescription)")
     }
     
-    func interstitialDidDismissScreen(interstitial: GADInterstitial) {
-       self.performSegueWithIdentifier("showListSegue", sender: self)
+    func interstitialDidDismissScreen(_ interstitial: GADInterstitial) {
+       self.performSegue(withIdentifier: "showListSegue", sender: self)
     }
 
     

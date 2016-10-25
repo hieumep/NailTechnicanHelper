@@ -9,6 +9,28 @@
 import Foundation
 import UIKit
 import CoreData
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
+
+@available(iOS 10.0, *)
 
 class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsControllerDelegate {
     var incomes : [DailyIncome]? = [DailyIncome]()
@@ -16,13 +38,13 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     var sumRealIncome = 0
     var sumCardTip = 0
     var sumCashTip = 0
-    var pickFromDate : NSDate? = nil
-    var pickToDate : NSDate? = nil
+    var pickFromDate : Date? = nil
+    var pickToDate : Date? = nil
     let textUltilities = TextUtilities()
     
-    var startDate = Date(date: NSDate(), addDay: -7)
-    var endDate = Date(date: NSDate())
-    var fetchRequest : NSFetchRequest? = nil
+    var startDate = DateConvenient(date: Date(), addDay: -7)
+    var endDate = DateConvenient(date: Date())
+    let fetchRequest: NSFetchRequest<DailyIncome>? = DailyIncome.fetchRequest() as? NSFetchRequest<DailyIncome>
     
     @IBOutlet weak var sumIncomeLabel: UILabel!
     @IBOutlet weak var distanceDate: UILabel!
@@ -30,7 +52,7 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     @IBOutlet weak var sumCardTipLabel: UILabel!
     @IBOutlet weak var sumCashTipLabel: UILabel!
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         appDelegate.iAdBannerAdView.center = CGPoint(
             x:  view.frame.midX,
@@ -46,7 +68,7 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
         sum(incomes)
@@ -55,22 +77,22 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
     
     func setDateAndLoadData() {
         if let _ = pickFromDate {
-            startDate = Date(date: pickFromDate!)
-            endDate = Date(date:pickToDate!)
+            startDate = DateConvenient(date: pickFromDate!)
+            endDate = DateConvenient(date:pickToDate!)
         }else {
-            startDate = Date(date: NSDate(), addDay: -7)
-            endDate = Date(date: NSDate())
+            startDate = DateConvenient(date: Foundation.Date(), addDay: -7)
+            endDate = DateConvenient(date: Foundation.Date())
         }
        
         distanceDate.text = "\(startDate.getStartDateString()) -> \(endDate.getEndDateString())"
         do {
-            fetchRequest!.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
+            fetchRequest?.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate() as CVarArg, self.endDate.getEndDate() as CVarArg)
             try fetchResultController.performFetch()
         }catch{
             print(error)
         }
     //    fetchResultController.delegate = self
-        incomes = fetchResultController.fetchedObjects as? [DailyIncome]
+        incomes = fetchResultController.fetchedObjects
         sum(incomes)
         tableView.reloadData()
         
@@ -80,7 +102,7 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
         appDelegate.iAdBannerAdView.center = CGPoint(
             x: view.frame.midX,
             y:  view.frame.height - appDelegate.iAdBannerAdView.frame.height / 2)
-        if !appDelegate.iAdBannerAdView.bannerLoaded {
+        if !appDelegate.iAdBannerAdView.isBannerLoaded {
             view.addSubview(appDelegate.iAdBannerAdView)
         }
         
@@ -100,9 +122,9 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
         }
         do {
  */
-            fetchRequest = NSFetchRequest(entityName: "DailyIncome")
+          //  fetchRequest = NSFetchRequest(entityName: "DailyIncome")
           //  fetchRequest!.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", self.startDate.getStartDate(), self.endDate.getEndDate())
-            fetchRequest!.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+            fetchRequest?.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
          /*   try fetchResultController.performFetch()
         }catch{
             print(error)
@@ -113,15 +135,15 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
  */
         fetchResultController.delegate = self
         setDateAndLoadData()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(setDateAndLoadData), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(setDateAndLoadData), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func sum(incomes : [DailyIncome]?){
+    func sum(_ incomes : [DailyIncome]?){
         sumIncome = 0
         sumRealIncome = 0
         sumCardTip = 0
@@ -152,71 +174,72 @@ class ListDailyIncomeViewController : UITableViewController, NSFetchedResultsCon
         CoreDataStackManager.sharedInstance().saveContext()
     }
     
-    lazy var fetchResultController : NSFetchedResultsController = {
-       
-        let fetchResultController =  NSFetchedResultsController(fetchRequest: self.fetchRequest!, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+    lazy var fetchResultController : NSFetchedResultsController<DailyIncome>  = {
+        let fetchRequest: NSFetchRequest<DailyIncome> = DailyIncome.fetchRequest() as! NSFetchRequest<DailyIncome>
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        let fetchResultController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
     
         return fetchResultController
     }()
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sessionInfo = self.fetchResultController.sections![section]
         return sessionInfo.numberOfObjects
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let income = self.fetchResultController.objectAtIndexPath(indexPath) as! DailyIncome
-        let cell = tableView.dequeueReusableCellWithIdentifier("listIncomeCell") as! ListDailyIncomeCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let income = self.fetchResultController.object(at: indexPath) 
+        let cell = tableView.dequeueReusableCell(withIdentifier: "listIncomeCell") as! ListDailyIncomeCell
         let realIncome = (Int(income.income) *  Int((income.shops?.percent)!) / 100)
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE, dd MMM yyyy"
-        cell.dateLabel.text = dateFormatter.stringFromDate(income.date)
-        cell.incomeLabel.text = textUltilities.stringToNumberNoZero(String(income.income))
+        cell.dateLabel.text = dateFormatter.string(from: (income.date as Date))
+        cell.incomeLabel.text = textUltilities.stringToNumberNoZero(String(describing: income.income))
         cell.realIncomeLabel.text = textUltilities.stringToNumberNoZero(String(realIncome))
-        cell.cardTipsLabel.text = textUltilities.stringToNumberNoZero(String(income.cardTip))
-        cell.cashTipsLabel.text = textUltilities.stringToNumberNoZero(String(income.cashTip))
+        cell.cardTipsLabel.text = textUltilities.stringToNumberNoZero(String(describing: income.cardTip))
+        cell.cashTipsLabel.text = textUltilities.stringToNumberNoZero(String(describing: income.cashTip))
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let dailyIncome = self.fetchResultController.objectAtIndexPath(indexPath) as! DailyIncome
-        let dailyIncomeVC = storyboard?.instantiateViewControllerWithIdentifier("dailyIncomeVC") as! DailyIncomeViewController
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dailyIncome = self.fetchResultController.object(at: indexPath)
+        let dailyIncomeVC = storyboard?.instantiateViewController(withIdentifier: "dailyIncomeVC") as! DailyIncomeViewController
         dailyIncomeVC.dailyIncome = dailyIncome
-        dailyIncomeVC.fetchRequest = self.fetchRequest
+        dailyIncomeVC.fetchRequest = self.fetchRequest!
         dailyIncomeVC.indexPath = indexPath
-        self.presentViewController(dailyIncomeVC, animated: true, completion: nil)
+        self.present(dailyIncomeVC, animated: true, completion: nil)
     }
     
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.beginUpdates()
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.endUpdates()
     }
     
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch  type {
-        case .Insert:
-            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-        case .Delete:
-            self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        case .insert:
+            self.tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            self.tableView.deleteRows(at: [indexPath!], with: .fade)
         default :
             return
         }
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        let income = self.fetchResultController.objectAtIndexPath(indexPath) as! DailyIncome
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let income = self.fetchResultController.object(at: indexPath) 
         switch (editingStyle) {
-        case .Delete :
+        case .delete :
             sumIncome = sumIncome - Int(income.income)
             sumRealIncome = sumRealIncome - (Int(income.income) * Int((income.shops?.percent)!) / 100)
             sumCardTip = sumCardTip - Int(income.cardTip)
             sumCashTip = sumCashTip - Int(income.cashTip)
             showSum()
-            sharedContext.deleteObject(income)
+            sharedContext.delete(income)
             self.saveContext()
         default:
             return

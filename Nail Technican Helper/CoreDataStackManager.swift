@@ -19,25 +19,25 @@ class CoreDataStackManager {
     }
     let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
     
-    func mirgationData(option : NSDictionary?){
+    func mirgationData(_ option : NSDictionary?){
         
     }
     
-    lazy var applicationDocumentDirectory : NSURL = {
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+    lazy var applicationDocumentDirectory : URL = {
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count - 1]
     }()
     
     lazy var managerObjectModel : NSManagedObjectModel = {
-        let modelURL = NSBundle.mainBundle().URLForResource("Model", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        let modelURL = Bundle.main.url(forResource: "Model", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     
     lazy var persistentStoreCoodinator : NSPersistentStoreCoordinator? = {
         let coodinator : NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managerObjectModel)
-        let url =  self.applicationDocumentDirectory.URLByAppendingPathComponent(SQLite_File_Name)
+        let url =  self.applicationDocumentDirectory.appendingPathComponent(SQLite_File_Name)
         do {
-            try coodinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: self.options)
+            try coodinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: self.options)
         }catch {
             abort()
         }
@@ -46,7 +46,7 @@ class CoreDataStackManager {
     
     lazy var managerObjectContext : NSManagedObjectContext = {
         let coodinator = self.persistentStoreCoodinator
-        let managerObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        let managerObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managerObjectContext.persistentStoreCoordinator = coodinator
         return managerObjectContext
     }()

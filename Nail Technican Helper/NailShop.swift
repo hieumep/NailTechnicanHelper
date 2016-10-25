@@ -25,16 +25,15 @@ class NailShop : NSManagedObject{
     @NSManaged var dailyIncomes : [DailyIncome]?
     @NSManaged var eachCustomerIncomes : [EachCustomerIncome]?
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
     }
     
     init(nailShops : [String : AnyObject], context : NSManagedObjectContext){
-        let entity = NSEntityDescription.entityForName("NailShop", inManagedObjectContext: context)!
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
-        let commision = nailShops[keys.percent] as! String
+        let entity = NSEntityDescription.entity(forEntityName: "NailShop", in: context)!
+        super.init(entity: entity, insertInto: context)
+        percent = nailShops[keys.percent] as! NSNumber
         nailShop = nailShops[keys.nailShop] as! String
-        percent = Int(commision)!
         phoneNumber = nailShops[keys.phoneNumber] as? String
         address = nailShops[keys.address] as? String
         selected = false
