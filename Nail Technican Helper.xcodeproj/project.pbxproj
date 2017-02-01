@@ -11,7 +11,7 @@
 		512D17701D2B5006008048F6 /* TextUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512D176F1D2B5006008048F6 /* TextUtilities.swift */; };
 		512D17711D3730A4008048F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51AD6D2D1CAE3C1F00FB92B2 /* Main.storyboard */; };
 		512F650F1CD8560800562623 /* PickDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512F650E1CD8560800562623 /* PickDateViewController.swift */; };
-		51722FCB1E2DDE310062A338 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51722FCA1E2DDE310062A338 /* GoogleService-Info.plist */; };
+		513F9E881E2F4508001F1203 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 513F9E871E2F4508001F1203 /* GoogleService-Info.plist */; };
 		51AA26271CC87C310075E672 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AA26261CC87C310075E672 /* ImageViewController.swift */; };
 		51AD6D2A1CAE3C1F00FB92B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D291CAE3C1F00FB92B2 /* AppDelegate.swift */; };
 		51AD6D2C1CAE3C1F00FB92B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AD6D2B1CAE3C1F00FB92B2 /* ViewController.swift */; };
@@ -42,8 +42,8 @@
 		512664D21D2B14D500AA0FC6 /* Modelv2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Modelv2.xcdatamodel; sourceTree = "<group>"; };
 		512D176F1D2B5006008048F6 /* TextUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextUtilities.swift; sourceTree = "<group>"; };
 		512F650E1CD8560800562623 /* PickDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickDateViewController.swift; sourceTree = "<group>"; };
+		513F9E871E2F4508001F1203 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		51722FC91E2DD7B50062A338 /* Nail Technican Helper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Nail Technican Helper.entitlements"; sourceTree = "<group>"; };
-		51722FCA1E2DDE310062A338 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		51AA26261CC87C310075E672 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		51AD6D261CAE3C1F00FB92B2 /* Nail Technican Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nail Technican Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51AD6D291CAE3C1F00FB92B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -130,8 +130,8 @@
 				51AD6D2B1CAE3C1F00FB92B2 /* ViewController.swift */,
 				51AD6D331CAE3C1F00FB92B2 /* Assets.xcassets */,
 				51AD6D351CAE3C1F00FB92B2 /* LaunchScreen.storyboard */,
+				513F9E871E2F4508001F1203 /* GoogleService-Info.plist */,
 				51AD6D381CAE3C1F00FB92B2 /* Info.plist */,
-				51722FCA1E2DDE310062A338 /* GoogleService-Info.plist */,
 				51AD6D301CAE3C1F00FB92B2 /* Model.xcdatamodeld */,
 			);
 			path = "Nail Technican Helper";
@@ -262,7 +262,7 @@
 			files = (
 				51AD6D621CB0DD8F00FB92B2 /* NailShop.storyboard in Resources */,
 				51AD6D371CAE3C1F00FB92B2 /* LaunchScreen.storyboard in Resources */,
-				51722FCB1E2DDE310062A338 /* GoogleService-Info.plist in Resources */,
+				513F9E881E2F4508001F1203 /* GoogleService-Info.plist in Resources */,
 				51AD6D341CAE3C1F00FB92B2 /* Assets.xcassets in Resources */,
 				512D17711D3730A4008048F6 /* Main.storyboard in Resources */,
 			);
@@ -416,7 +416,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -459,7 +459,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -479,6 +479,7 @@
 				DEVELOPMENT_TEAM = QQLPZRZ2LG;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Nail Technican Helper/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "Ronald.Nail-Technican-Helper";
@@ -501,6 +502,7 @@
 				DEVELOPMENT_TEAM = QQLPZRZ2LG;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Nail Technican Helper/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "Ronald.Nail-Technican-Helper";
